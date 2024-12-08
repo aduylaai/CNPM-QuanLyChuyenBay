@@ -1,0 +1,42 @@
+﻿@model CNPM_QuanLyChuyenBay.Models.LoTrinh
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LoTrinh</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaLoTrinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaLoTrinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaSB_Di)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaSB_Di)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaSB_Den)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaSB_Den)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MaLoTrinh}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

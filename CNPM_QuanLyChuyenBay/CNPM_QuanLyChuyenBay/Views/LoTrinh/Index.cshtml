@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CNPM_QuanLyChuyenBay.Models.LoTrinh>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaLoTrinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaSB_Di)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaSB_Den)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaLoTrinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaSB_Di)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaSB_Den)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaLoTrinh }) |
+            @Html.ActionLink("Details", "Details", new { id = item.MaLoTrinh }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.MaLoTrinh })
+        </td>
+    </tr>
+}
+
+</table>

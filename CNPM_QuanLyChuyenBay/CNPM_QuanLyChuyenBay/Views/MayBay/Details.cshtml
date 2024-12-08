@@ -1,0 +1,42 @@
+﻿@model CNPM_QuanLyChuyenBay.Models.MayBay
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MayBay</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaMayBay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaMayBay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenMayBay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenMayBay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SucChuaToiDa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SucChuaToiDa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaMayBay }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

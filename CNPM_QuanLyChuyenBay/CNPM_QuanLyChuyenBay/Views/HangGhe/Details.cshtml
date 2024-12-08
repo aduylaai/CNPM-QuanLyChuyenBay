@@ -1,0 +1,34 @@
+﻿@model CNPM_QuanLyChuyenBay.Models.HangGhe
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HangGhe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaHangGhe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaHangGhe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHangGhe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenHangGhe)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MaHangGhe }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

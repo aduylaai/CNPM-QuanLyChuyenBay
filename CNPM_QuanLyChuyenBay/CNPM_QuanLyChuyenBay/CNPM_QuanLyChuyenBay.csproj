@@ -120,13 +120,24 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HangGheController.cs" />
+    <Compile Include="Controllers\HangHangKhongController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoTrinhController.cs" />
+    <Compile Include="Controllers\MayBayController.cs" />
+    <Compile Include="Controllers\SanBayController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CacHamKiemTra.cs" />
     <Compile Include="Helpers\DBConnect.cs" />
+    <Compile Include="Models\ChuyenBay.cs" />
+    <Compile Include="Models\HangGhe.cs" />
+    <Compile Include="Models\HangHangKhong.cs" />
+    <Compile Include="Models\LoTrinh.cs" />
+    <Compile Include="Models\MayBay.cs" />
+    <Compile Include="Models\SanBay.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -171,6 +182,28 @@
     <Content Include="Views\TaiKhoan\Create.cshtml" />
     <Content Include="Views\TaiKhoan\Edit.cshtml" />
     <Content Include="Views\TaiKhoan\Delete.cshtml" />
+    <Content Include="Views\SanBay\Index.cshtml" />
+    <Content Include="Views\SanBay\Details.cshtml" />
+    <Content Include="Views\SanBay\Create.cshtml" />
+    <Content Include="Views\SanBay\Edit.cshtml" />
+    <Content Include="Views\SanBay\Delete.cshtml" />
+    <Content Include="Views\MayBay\Index.cshtml" />
+    <Content Include="Views\MayBay\Details.cshtml" />
+    <Content Include="Views\MayBay\Create.cshtml" />
+    <Content Include="Views\MayBay\Edit.cshtml" />
+    <Content Include="Views\MayBay\Delete.cshtml" />
+    <Content Include="Views\HangHangKhong\Index.cshtml" />
+    <Content Include="Views\HangHangKhong\Details.cshtml" />
+    <Content Include="Views\HangHangKhong\Create.cshtml" />
+    <Content Include="Views\HangHangKhong\Edit.cshtml" />
+    <Content Include="Views\HangGhe\Index.cshtml" />
+    <Content Include="Views\HangGhe\Details.cshtml" />
+    <Content Include="Views\HangGhe\Edit.cshtml" />
+    <Content Include="Views\HangGhe\Create.cshtml" />
+    <Content Include="Views\LoTrinh\Index.cshtml" />
+    <Content Include="Views\LoTrinh\Details.cshtml" />
+    <Content Include="Views\LoTrinh\Create.cshtml" />
+    <Content Include="Views\LoTrinh\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

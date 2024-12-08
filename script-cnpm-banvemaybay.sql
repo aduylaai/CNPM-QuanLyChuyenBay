@@ -1,6 +1,7 @@
 ﻿USE master
 go
 
+
 create database CNPM_QuanLyBanVeMayBay
 go
 
