@@ -204,6 +204,8 @@
     <Content Include="Views\LoTrinh\Details.cshtml" />
     <Content Include="Views\LoTrinh\Create.cshtml" />
     <Content Include="Views\LoTrinh\Edit.cshtml" />
+    <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\Shared\CustomerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

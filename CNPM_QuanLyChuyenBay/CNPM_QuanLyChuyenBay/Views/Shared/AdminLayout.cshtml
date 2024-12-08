@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Layout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ff7f00; /* Màu cam */
+            color: white;
+            padding: 10px 20px;
+        }
+
+            header .logo {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            header button {
+                background-color: #ff7f00; /* Màu cam */
+                color: white;
+                border: none;
+                padding: 8px 15px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+                header button:hover {
+                    background-color: #e06a00;
+                }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            height: 100vh;
+            position: fixed;
+            top: 50px;
+        }
+
+            .sidebar h3 {
+                font-size: 18px;
+                color: #343a40;
+            }
+
+            .sidebar a {
+                display: block;
+                margin: 15px 0;
+                text-decoration: none;
+                color: #343a40;
+                font-size: 16px;
+            }
+
+                .sidebar a:hover {
+                    color: #ff7f00; /* Màu cam */
+                }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+            .main-content h1 {
+                font-size: 28px;
+                color: #343a40;
+            }
+
+            .main-content p {
+                font-size: 18px;
+                color: #666;
+            }
+
+            .main-content ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .main-content li {
+                font-size: 16px;
+                color: #343a40;
+            }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Trang bán vé Cái Tôi Thấp</div>
+        <button>Logout</button>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <h3>Admin Menu</h3>
+        <a href="#">Dashboard</a>
+        <a href="#">Manage Flights</a>
+        <a href="#">Manage Users</a>
+        <a href="#">Reports</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        @RenderBody()
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Admin Panel. All rights reserved.
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
