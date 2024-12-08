@@ -11,5 +11,6 @@ namespace CNPM_QuanLyChuyenBay.Models
         public int MaSB_Di { get; set; }
         public int MaSB_Den { get; set; }
 
+    
     }
 }

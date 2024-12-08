@@ -2,44 +2,89 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2>Danh sách tài khoản</h2>
 
+<!-- Thêm CSS để tạo kiểu cho trang Index -->
+<style>
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .table a:hover {
+                text-decoration: underline;
+            }
+
+    .create-link {
+        display: inline-block;
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+        .create-link:hover {
+            background-color: #218838;
+        }
+</style>
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create")" class="create-link">Create New</a>
 </p>
+
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaTaiKhoan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenTaiKhoan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaTaiKhoan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenTaiKhoan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MatKhau)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MaTaiKhoan }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaTaiKhoan }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaTaiKhoan })
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MaTaiKhoan)</th>
+            <th>@Html.DisplayNameFor(model => model.TenTaiKhoan)</th>
+            <th>@Html.DisplayNameFor(model => model.MatKhau)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaTaiKhoan)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenTaiKhoan)</td>
+                <td>@Html.DisplayFor(modelItem => item.MatKhau)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaTaiKhoan }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MaTaiKhoan }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaTaiKhoan })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

@@ -3,14 +3,52 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-primary" })
 </p>
+
+<!-- Thêm CSS để làm bảng trông đẹp mắt -->
+<style>
+    .table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+            .table a:hover {
+                text-decoration: underline;
+            }
+</style>
+
 <table class="table">
     <tr>
         <th>
@@ -22,20 +60,20 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaHangHangKhong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenHangHangKhong)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {id=item.MaHangHangKhong }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaHangHangKhong }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaHangHangKhong })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHangHangKhong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHangHangKhong)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaHangHangKhong }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaHangHangKhong }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaHangHangKhong })
+            </td>
+        </tr>
+    }
 </table>

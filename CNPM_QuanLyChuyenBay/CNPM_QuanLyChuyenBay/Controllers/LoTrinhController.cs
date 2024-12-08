@@ -11,7 +11,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 {
     public class LoTrinhController : Controller
     {
-        DBConnect dbConn = new DBConnect("DESKTOP-5O90F68", "CNPM_QuanLyBanVeMayBay", "sa", "123");
+        DBConnect dbConn = new DBConnect("DUNX\\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
         public LoTrinhController()
         {
             dbConn.openConnect();
@@ -52,8 +52,23 @@ namespace CNPM_QuanLyChuyenBay.Controllers
         // GET: LoTrinh/Create
         public ActionResult Create()
         {
+            List<SelectListItem> sanBayList = new List<SelectListItem>();
+            SqlDataReader reader = dbConn.ThucThiReader("Select * from SanBay");
+            while (reader.Read())
+            {
+                sanBayList.Add(new SelectListItem
+                {
+                    Value = reader["MaSanBay"].ToString(),
+                    Text = reader["TenSanBay"].ToString()
+                });
+            }
+            reader.Close(); 
+
+            ViewBag.SanBayList = sanBayList;
+
             return View();
         }
+
 
         // POST: LoTrinh/Create
         [HttpPost]

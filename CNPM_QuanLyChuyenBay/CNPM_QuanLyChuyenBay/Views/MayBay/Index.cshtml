@@ -3,45 +3,102 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-
 }
 
 <h2>Index</h2>
 
+<!-- Thêm CSS để tạo kiểu cho bảng và các liên kết -->
+<style>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+        .table th, .table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    .btn-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+</style>
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { @class = "btn" })
 </p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MaMayBay)
+            Mã Máy bay
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TenMayBay)
+            Tên máy bay
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SucChuaToiDa)
+            Sức chứa tối đa
         </th>
-        <th></th>
+        <th>Actions</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaMayBay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenMayBay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SucChuaToiDa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MaMayBay }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaMayBay }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaMayBay })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaMayBay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenMayBay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SucChuaToiDa)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaMayBay }, new { @class = "btn-link" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaMayBay }, new { @class = "btn-link" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaMayBay }, new { @class = "btn-link" })
+            </td>
+        </tr>
+    }
 </table>

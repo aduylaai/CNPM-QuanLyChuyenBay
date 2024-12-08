@@ -1,52 +1,122 @@
 ﻿@model CNPM_QuanLyChuyenBay.Models.SanBay
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi Tiết";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-
 }
 
-<h2>Details</h2>
+<h2>Chi Tiết</h2>
 
-<div>
-    <h4>SanBay</h4>
+<!-- Thêm CSS để tạo giao diện đẹp với khung cho thông tin -->
+<style>
+    .details-container {
+        width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        text-align: left;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-box {
+        border: 2px solid; /* Tạo viền cho khung */
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dl-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+        .dl-horizontal dt {
+            font-weight: bold;
+            color: #333;
+            flex-basis: 30%; /* Chiếm 30% chiều rộng của hàng */
+            margin-bottom: 5px;
+        }
+
+        .dl-horizontal dd {
+            flex-basis: 70%; /* Chiếm 70% chiều rộng của hàng */
+            margin: 0 0 10px 0;
+            color: #555;
+        }
+
+    .btn-link {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        display: inline-block;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div class="details-container">
+    <h4>Thông tin Sân Bay</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MaSanBay)
-        </dt>
+    <!-- Khung thông tin sân bay -->
+    <div class="info-box">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.MaSanBay)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaSanBay)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MaSanBay)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TenSanBay)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TenSanBay)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TenSanBay)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.TenThanhPho)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TenThanhPho)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenSanBay)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenThanhPho)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenThanhPho)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VietTatSanBay)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VietTatSanBay)
-        </dd>
-
-    </dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.VietTatSanBay)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VietTatSanBay)
+            </dd>
+        </dl>
+    </div>
 </div>
+
+<!-- Các liên kết Edit và Back to List -->
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaSanBay }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaSanBay }, new { @class = "btn" }) |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { @class = "btn" })
 </p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

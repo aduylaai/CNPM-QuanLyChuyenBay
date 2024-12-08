@@ -2,20 +2,64 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Chỉnh sửa</h2>
+<h2>Chỉnh sửa tài khoản</h2>
 
+<!-- Thêm CSS để tạo kiểu cho trang Edit -->
+<style>
+    .form-horizontal {
+        max-width: 600px;
+        margin: 20px auto;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 4px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-default {
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+        .btn-default:hover {
+            background-color: #0056b3;
+        }
+
+    .text-danger {
+        color: #d9534f;
+    }
+
+    .form-actions {
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Tài khoản:</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
 
         <div class="form-group">
             @Html.LabelFor(model => model.TenTaiKhoan, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -33,16 +77,14 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div class="form-group form-actions">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div style="text-align: center; margin-top: 20px;">
+    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-link" })
 </div>
 
 @section Scripts {

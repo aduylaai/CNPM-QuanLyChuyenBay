@@ -2,18 +2,56 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Danh sách tài khoản:</h2>
+<h2>Chi tiết tài khoản</h2>
 
-<div>
-    <h4></h4>
+<!-- Thêm CSS để tạo kiểu cho trang Details -->
+<style>
+    .details-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+    }
+
+    .dl-horizontal dt {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .dl-horizontal dd {
+        margin-bottom: 10px;
+    }
+
+    .action-links {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btn-link {
+        font-weight: bold;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+</style>
+
+<div class="details-container">
+    <h4>Thông tin tài khoản:</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.MaTaiKhoan)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.MaTaiKhoan)
         </dd>
@@ -21,7 +59,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.TenTaiKhoan)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.TenTaiKhoan)
         </dd>
@@ -29,14 +66,13 @@
         <dt>
             @Html.DisplayNameFor(model => model.MatKhau)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.MatKhau)
         </dd>
-
     </dl>
+
+    <div class="action-links">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaTaiKhoan }, new { @class = "btn-link" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn-link" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaTaiKhoan }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

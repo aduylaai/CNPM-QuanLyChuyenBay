@@ -11,7 +11,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 {
     public class MayBayController : Controller
     {
-        DBConnect dbConn = new DBConnect("DESKTOP-5O90F68", "CNPM_QuanLyBanVeMayBay", "sa", "123");
+        DBConnect dbConn = new DBConnect("DUNX\\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
         public MayBayController()
         {
             dbConn.openConnect();

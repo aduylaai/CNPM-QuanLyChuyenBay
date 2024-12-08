@@ -7,17 +7,76 @@
 
 <h2>Edit</h2>
 
+<!-- Thêm CSS để hiển thị thông tin trên cùng một hàng -->
+<style>
+    .form-horizontal {
+        width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            width: 25%; /* Chiếm 25% chiều rộng của hàng */
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group .col-md-10 {
+            flex: 1; /* Chiếm phần còn lại của chiều rộng */
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-link {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+</style>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>HangGhe</h4>
+        <h4>Hạng Ghế</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.MaHangGhe, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MaHangGhe, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MaHangGhe, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MaHangGhe, "", new { @class = "text-danger" })
@@ -25,7 +84,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TenHangGhe, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TenHangGhe, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TenHangGhe, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenHangGhe, "", new { @class = "text-danger" })
@@ -34,14 +93,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { @class = "btn-link" })
 </div>
 
 @section Scripts {

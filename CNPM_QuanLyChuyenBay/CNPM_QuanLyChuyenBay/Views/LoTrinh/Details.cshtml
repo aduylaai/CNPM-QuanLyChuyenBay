@@ -3,8 +3,54 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-
 }
+
+<style>
+    /* Styling for the details page */
+    .dl-horizontal dt {
+        font-weight: bold;
+        width: 150px; /* Adjust the width for a uniform look */
+        text-align: right; /* Align the labels to the right */
+        padding-right: 10px;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 160px; /* Offset to align with labels */
+        padding-bottom: 10px;
+    }
+
+    h4 {
+        color: #007bff; /* Highlight header */
+        border-bottom: 2px solid #007bff; /* Underline header */
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+    }
+
+    dl {
+        background-color: #f9f9f9; /* Light background for details */
+        padding: 20px;
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    p {
+        margin-top: 15px;
+    }
+
+    .action-link {
+        margin-right: 10px;
+    }
+
+        .action-link a {
+            text-decoration: none;
+            color: #007bff; /* Match header color */
+        }
+
+            .action-link a:hover {
+                text-decoration: underline;
+                color: #0056b3; /* Darker shade on hover */
+            }
+</style>
 
 <h2>Details</h2>
 
@@ -15,7 +61,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.MaLoTrinh)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.MaLoTrinh)
         </dd>
@@ -23,7 +68,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.MaSB_Di)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.MaSB_Di)
         </dd>
@@ -31,14 +75,13 @@
         <dt>
             @Html.DisplayNameFor(model => model.MaSB_Den)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.MaSB_Den)
         </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.MaLoTrinh}) |
+
+<p class="action-link">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaLoTrinh }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
