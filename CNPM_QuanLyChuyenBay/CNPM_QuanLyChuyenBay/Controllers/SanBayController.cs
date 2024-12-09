@@ -12,7 +12,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 {
     public class SanBayController : Controller
     {
-        DBConnect dbConn = new DBConnect("DUNX\\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
+        DBConnect dbConn = new DBConnect(".", "CNPM_QuanLyBanVeMayBay");
         public SanBayController()
         {
             dbConn.openConnect();

@@ -11,7 +11,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 {
     public class HangHangKhongController : Controller
     {
-        DBConnect dbConn = new DBConnect("DUNX\\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
+        DBConnect dbConn = new DBConnect(".", "CNPM_QuanLyBanVeMayBay");
         public HangHangKhongController()
         {
             dbConn.openConnect();
