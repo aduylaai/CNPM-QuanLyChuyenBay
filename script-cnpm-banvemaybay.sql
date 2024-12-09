@@ -110,6 +110,34 @@ ALTER TABLE ChuyenBay
 Add SLGheThuongGia INT
 GO
 
+Alter TABLE ChuyenBay
+Add NgayGioDi datetime
+
+Alter Table ChuyenBay
+Add NgayGioDen datetime
+
+SELECT 
+    cb.*,
+    lt.MaLoTrinh,
+    sb_di.TenSanBay AS TenSanBayDi,
+    sb_den.TenSanBay AS TenSanBayDen,
+    cb.GiaBay
+FROM ChuyenBay cb
+JOIN LoTrinh lt ON cb.MaLoTrinh = lt.MaLoTrinh
+JOIN SanBay sb_di ON lt.MaSB_Di = sb_di.MaSanBay
+JOIN SanBay sb_den ON lt.MaSB_Den = sb_den.MaSanBay;
+
+Update ChuyenBay
+Set NgayGioDi = '2024-12-08 14:30:00', NgayGioDen = '2024-12-08 16:30:00'
+Where MaChuyenBay = 7
+
+Update ChuyenBay
+Set NgayGioDi = '2024-10-08 09:30:00', NgayGioDen = '2024-10-08 10:45:00'
+Where MaChuyenBay = 8
+
+Update ChuyenBay
+Set NgayGioDi = '2024-12-08 15:00:00', NgayGioDen = '2024-12-08 16:45:00'
+Where MaChuyenBay = 9
 
 -- Bảng 'Hạng ghế'
 CREATE TABLE HangGhe (
