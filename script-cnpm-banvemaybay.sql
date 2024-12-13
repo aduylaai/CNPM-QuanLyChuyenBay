@@ -1,6 +1,7 @@
 ﻿USE master
 go
 
+drop database CNPM_QuanLyBanVeMayBay
 
 create database CNPM_QuanLyBanVeMayBay
 go
@@ -151,11 +152,12 @@ CREATE TABLE GiaHangGhe (
     MaHangGhe INT,
     MaHHK INT,
     Gia DECIMAL(18, 2) CHECK (Gia > 0),
-    CONSTRAINT PK_GiaHangGhe PRIMARY KEY (MaHangGhe, MaHHK),
     CONSTRAINT FK_HANGGHE_GIA FOREIGN KEY (MaHangGhe) REFERENCES HangGhe(MaHangGhe),
     CONSTRAINT FK_HANGGHE_HHK FOREIGN KEY (MaHHK) REFERENCES HangHangKhong(MaHangHangKhong)
 );
 GO
+
+
 
 -- Bảng 'Trạng thái vé'
 CREATE TABLE TrangThaiVe (
@@ -164,41 +166,43 @@ CREATE TABLE TrangThaiVe (
 );
 GO
 
+-- Bảng 'Phiếu đặt'
+CREATE TABLE PhieuDat (
+    MaPhieuDat INT IDENTITY(1,1) PRIMARY KEY,
+    MaKhachHang INT NOT NULL,
+    NgayDat DATE,
+    CONSTRAINT FK_PHIEUDAT_KHACHHANG FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
+);
+GO
+
+
 -- Bảng 'Vé'
 CREATE TABLE Ve (
     MaVe INT IDENTITY(1,1) PRIMARY KEY,
     MaHanhKhach INT NOT NULL,
     MaTTV INT NOT NULL,
     MaPhieuDat INT NULL,
+	MaHangGhe INT NOT NULL,
+	CONSTRAINT FK_CTPD_HANGGHE FOREIGN KEY (MaHangGhe) REFERENCES HangGhe(MaHangGhe),
     CONSTRAINT FK_VE_TRANGTHAIVE FOREIGN KEY (MaTTV) REFERENCES TrangThaiVe(MaTTV),
     CONSTRAINT FK_VE_HANHKHACH FOREIGN KEY (MaHanhKhach) REFERENCES HanhKhach(MaHanhKhach),
     CONSTRAINT FK_VE_PHIEUDAT FOREIGN KEY (MaPhieuDat) REFERENCES PhieuDat(MaPhieuDat)
 );
 GO
 
--- Bảng 'Phiếu đặt'
-CREATE TABLE PhieuDat (
-    MaPhieuDat INT IDENTITY(1,1) PRIMARY KEY,
-    MaKhachHang INT NOT NULL,
-    NgayDat DATE,
-    SoLuongVeDat INT CHECK (SoLuongVeDat > 0),
-    CONSTRAINT FK_PHIEUDAT_KHACHHANG FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
-);
-GO
+
+
 
 -- Bảng 'Chi tiết phiếu đặt'
 CREATE TABLE ChiTietPhieuDat (
-    MaChiTietPhieuDat INT IDENTITY(1,1) PRIMARY KEY,
     MaPhieuDat INT NOT NULL,
     MaVe INT NOT NULL,
-    MaHanhKhach INT NOT NULL,
-    MaHangGhe INT NOT NULL,
-    CONSTRAINT FK_CTPD_PHIEUDAT FOREIGN KEY (MaPhieuDat) REFERENCES PhieuDat(MaPhieuDat),
+	CONSTRAINT FK_CTPD_PHIEUDAT FOREIGN KEY (MaPhieuDat) REFERENCES PhieuDat(MaPhieuDat),
     CONSTRAINT FK_CTPD_VE FOREIGN KEY (MaVe) REFERENCES Ve(MaVe),
-    CONSTRAINT FK_CTPD_HANHKHACH FOREIGN KEY (MaHanhKhach) REFERENCES HanhKhach(MaHanhKhach),
-    CONSTRAINT FK_CTPD_HANGGHE FOREIGN KEY (MaHangGhe) REFERENCES HangGhe(MaHangGhe)
 );
 GO
+
+
 
 -- Bảng 'Hoá đơn'
 CREATE TABLE HoaDon (
@@ -301,6 +305,7 @@ VALUES
 (1, 1, 3500000); 
 GO
 
+
 -- Dữ liệu bảng 'Trạng thái vé'
 INSERT INTO TrangThaiVe (TenTTV)
 VALUES 
@@ -310,27 +315,26 @@ VALUES
 (N'Hủy vé');
 GO
 
--- Dữ liệu bảng 'Phiếu đặt'
-INSERT INTO PhieuDat (MaKhachHang, NgayDat, SoLuongVeDat)
+INSERT INTO PhieuDat (MaKhachHang, NgayDat)
 VALUES 
-(1, '2024-12-01', 2), 
-(2, '2024-12-02', 1);
+(1, '2024-12-01'), 
+(2, '2024-12-02');
 GO
 
 -- Dữ liệu bảng 'Vé'
-INSERT INTO Ve (MaHanhKhach, MaTTV, MaPhieuDat)
+INSERT INTO Ve (MaHanhKhach, MaTTV, MaPhieuDat, MaHangGhe)
 VALUES
-(1, 1, 1), -- 
-(2, 1, 1), -- 
-(3, 1, 2); --
+(1, 1, 1,1), -- 
+(2, 1, 1,1), -- 
+(3, 1, 2,2); --
 GO
 
 -- Dữ liệu bảng 'Chi tiết phiếu đặt'
-INSERT INTO ChiTietPhieuDat (MaPhieuDat, MaVe, MaHanhKhach, MaHangGhe)
+INSERT INTO ChiTietPhieuDat (MaPhieuDat, MaVe)
 VALUES
-(1, 1, 1, 1), 
-(1, 2, 2, 2),
-(2, 3, 3, 1);
+(1, 1), 
+(1, 2),
+(2, 3);
 GO
 
 -- Dữ liệu bảng 'Hoá đơn'
