@@ -20,6 +20,7 @@ CREATE TABLE TaiKhoan (
 GO
 
 -- Bảng 'Khách hàng'
+-- DiaChi
 CREATE TABLE KhachHang (
     MaKhachHang INT IDENTITY(1,1) PRIMARY KEY,
     HoTen NVARCHAR(100),
@@ -33,6 +34,7 @@ CREATE TABLE KhachHang (
 GO
 
 -- Bảng 'Hành khách'
+-- Bo Email + SDT
 CREATE TABLE HanhKhach (
     MaHanhKhach INT IDENTITY(1,1) PRIMARY KEY,
     HoTen NVARCHAR(100),
@@ -117,28 +119,19 @@ Add NgayGioDi datetime
 Alter Table ChuyenBay
 Add NgayGioDen datetime
 
-SELECT 
-    cb.*,
-    lt.MaLoTrinh,
-    sb_di.TenSanBay AS TenSanBayDi,
-    sb_den.TenSanBay AS TenSanBayDen,
-    cb.GiaBay
-FROM ChuyenBay cb
-JOIN LoTrinh lt ON cb.MaLoTrinh = lt.MaLoTrinh
-JOIN SanBay sb_di ON lt.MaSB_Di = sb_di.MaSanBay
-JOIN SanBay sb_den ON lt.MaSB_Den = sb_den.MaSanBay;
+
 
 Update ChuyenBay
 Set NgayGioDi = '2024-12-08 14:30:00', NgayGioDen = '2024-12-08 16:30:00'
-Where MaChuyenBay = 7
+Where MaChuyenBay = 1
 
 Update ChuyenBay
 Set NgayGioDi = '2024-10-08 09:30:00', NgayGioDen = '2024-10-08 10:45:00'
-Where MaChuyenBay = 8
+Where MaChuyenBay = 2
 
 Update ChuyenBay
 Set NgayGioDi = '2024-12-08 15:00:00', NgayGioDen = '2024-12-08 16:45:00'
-Where MaChuyenBay = 9
+Where MaChuyenBay = 3
 
 -- Bảng 'Hạng ghế'
 CREATE TABLE HangGhe (
@@ -171,6 +164,8 @@ CREATE TABLE PhieuDat (
     MaPhieuDat INT IDENTITY(1,1) PRIMARY KEY,
     MaKhachHang INT NOT NULL,
     NgayDat DATE,
+	--MaBooking
+	-- 
     CONSTRAINT FK_PHIEUDAT_KHACHHANG FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
 );
 GO
@@ -182,7 +177,7 @@ CREATE TABLE Ve (
     MaHanhKhach INT NOT NULL,
     MaTTV INT NOT NULL,
     MaPhieuDat INT NULL,
-	MaHangGhe INT NOT NULL,
+	MaHangGhe INT NOT NULL, -- de can be null
 	CONSTRAINT FK_CTPD_HANGGHE FOREIGN KEY (MaHangGhe) REFERENCES HangGhe(MaHangGhe),
     CONSTRAINT FK_VE_TRANGTHAIVE FOREIGN KEY (MaTTV) REFERENCES TrangThaiVe(MaTTV),
     CONSTRAINT FK_VE_HANHKHACH FOREIGN KEY (MaHanhKhach) REFERENCES HanhKhach(MaHanhKhach),
@@ -190,6 +185,7 @@ CREATE TABLE Ve (
 );
 GO
 
+-- Bang trung gian chua thong tin hanh khach ==>
 
 
 
@@ -343,3 +339,15 @@ VALUES
 (1, 3000000), 
 (2, 1500000);
 GO
+
+--
+SELECT 
+    cb.*,
+    lt.MaLoTrinh,
+    sb_di.TenSanBay AS TenSanBayDi,
+    sb_den.TenSanBay AS TenSanBayDen,
+    cb.GiaBay
+FROM ChuyenBay cb
+JOIN LoTrinh lt ON cb.MaLoTrinh = lt.MaLoTrinh
+JOIN SanBay sb_di ON lt.MaSB_Di = sb_di.MaSanBay
+JOIN SanBay sb_den ON lt.MaSB_Den = sb_den.MaSanBay;
