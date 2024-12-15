@@ -119,7 +119,10 @@ Add NgayGioDi datetime
 Alter Table ChuyenBay
 Add NgayGioDen datetime
 
-
+select * from chuyenbay
+select * from ve
+select * from ChiTietPhieuDat
+select * from PhieuDat
 
 Update ChuyenBay
 Set NgayGioDi = '2024-12-08 14:30:00', NgayGioDen = '2024-12-08 16:30:00'
@@ -164,12 +167,13 @@ CREATE TABLE PhieuDat (
     MaPhieuDat INT IDENTITY(1,1) PRIMARY KEY,
     MaKhachHang INT NOT NULL,
     NgayDat DATE,
-	--MaBooking
+
 	-- 
     CONSTRAINT FK_PHIEUDAT_KHACHHANG FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
 );
 GO
-
+Alter table PhieuDat
+Add MaBooking varchar(20);
 
 -- Bảng 'Vé'
 CREATE TABLE Ve (
@@ -184,19 +188,14 @@ CREATE TABLE Ve (
     CONSTRAINT FK_VE_PHIEUDAT FOREIGN KEY (MaPhieuDat) REFERENCES PhieuDat(MaPhieuDat)
 );
 GO
+-- Add them MaChuyenBay
+Alter table Ve
+Add MaChuyenBay int;
 
--- Bang trung gian chua thong tin hanh khach ==>
+ALTER TABLE Ve
+ADD CONSTRAINT FK_VE_CHUYENBAY FOREIGN KEY (MaChuyenBay)
+REFERENCES ChuyenBay(MaChuyenBay);
 
-
-
--- Bảng 'Chi tiết phiếu đặt'
-CREATE TABLE ChiTietPhieuDat (
-    MaPhieuDat INT NOT NULL,
-    MaVe INT NOT NULL,
-	CONSTRAINT FK_CTPD_PHIEUDAT FOREIGN KEY (MaPhieuDat) REFERENCES PhieuDat(MaPhieuDat),
-    CONSTRAINT FK_CTPD_VE FOREIGN KEY (MaVe) REFERENCES Ve(MaVe),
-);
-GO
 
 
 
