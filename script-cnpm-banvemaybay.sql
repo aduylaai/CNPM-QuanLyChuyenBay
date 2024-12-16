@@ -191,11 +191,11 @@ GO
 -- Add them MaChuyenBay
 Alter table Ve
 Add MaChuyenBay int;
-
+GO
 ALTER TABLE Ve
 ADD CONSTRAINT FK_VE_CHUYENBAY FOREIGN KEY (MaChuyenBay)
 REFERENCES ChuyenBay(MaChuyenBay);
-
+GO
 
 
 
@@ -350,3 +350,6 @@ FROM ChuyenBay cb
 JOIN LoTrinh lt ON cb.MaLoTrinh = lt.MaLoTrinh
 JOIN SanBay sb_di ON lt.MaSB_Di = sb_di.MaSanBay
 JOIN SanBay sb_den ON lt.MaSB_Den = sb_den.MaSanBay;
+
+select * from Ve
+select * from PhieuDat
