@@ -14,6 +14,6 @@ namespace CNPM_QuanLyChuyenBay.Models
         public int MaMayBay { get; set; }
         public int GiaBay { get; set; }
         public int SLGhePhoThong { get; set; }
-
+        public int SLGheThuongGia { get; set; }
     }
 }

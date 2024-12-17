@@ -353,3 +353,5 @@ JOIN SanBay sb_den ON lt.MaSB_Den = sb_den.MaSanBay;
 
 select * from Ve
 select * from PhieuDat
+select * from chuyenbay
+select * from LoTrinh
