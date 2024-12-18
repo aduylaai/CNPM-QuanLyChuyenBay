@@ -140,6 +140,7 @@
     <Compile Include="Models\HangGhe.cs" />
     <Compile Include="Models\HangHangKhong.cs" />
     <Compile Include="Models\KetQuaTimKiem.cs" />
+    <Compile Include="Models\LichSu.cs" />
     <Compile Include="Models\LoTrinh.cs" />
     <Compile Include="Models\MayBay.cs" />
     <Compile Include="Models\PHanhKhach.cs" />
@@ -236,6 +237,7 @@
     <Content Include="Views\TaiKhoan\Login.cshtml" />
     <Content Include="Views\DatVe\TimKiemChuyenBay.cshtml" />
     <Content Include="Views\DatVe\KetQuaTimKiem.cshtml" />
+    <Content Include="Views\DatVe\LichSuDatVe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,62 @@
+﻿@model List<CNPM_QuanLyChuyenBay.Models.LichSuDatVe>
+
+@{
+    ViewBag.Title = "Lịch Sử Đặt Vé";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+
+<h2 style="text-align:center; margin-bottom: 20px;">Lịch Sử Đặt Vé</h2>
+
+<table style="width: 100%; border-collapse: collapse; text-align: center;" border="1">
+    <thead style="background-color: #f4f4f4;">
+        <tr>
+            <th>Mã Phiếu Đặt</th>
+            <th>Ngày Đặt</th>
+            <th>Mã Chuyến Bay</th>
+            <th>Ngày Giờ Đi</th>
+            <th>Tên Máy Bay</th>
+            <th>Sân Bay Đi</th>
+            <th>Sân Bay Đến</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaPhieuDat</td>
+                <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
+                <td>@item.MaChuyenBay</td>
+                <td>@item.NgayGioDi.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@item.TenMayBay</td>
+                <td>@item.SanBayDi</td>
+                <td>@item.SanBayDen</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+</style>

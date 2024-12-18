@@ -346,5 +346,55 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
             return View(hoaDon);
         }
+        public ActionResult LichSuDatVe()
+        {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
+
+            string userName = Session["UserName"].ToString();
+            List<LichSuDatVe> lichSuDatVes = new List<LichSuDatVe>();
+
+            string sqlQuery = @"
+                SELECT pd.MaPhieuDat, pd.NgayDat, cb.MaChuyenBay, cb.NgayGioDi, 
+                       mb.TenMayBay, sbDi.TenSanBay AS SanBayDi, sbDen.TenSanBay AS SanBayDen
+                FROM PhieuDat pd
+                JOIN Ve v ON pd.MaPhieuDat = v.MaPhieuDat
+                JOIN ChuyenBay cb ON v.MaChuyenBay = cb.MaChuyenBay
+                JOIN MayBay mb ON cb.MaMayBay = mb.MaMayBay
+                JOIN SanBay sbDi ON cb.MaSanBayDi = sbDi.MaSanBay
+                JOIN SanBay sbDen ON cb.MaSanBayDen = sbDen.MaSanBay
+                JOIN KhachHang kh ON pd.MaKhachHang = kh.MaKhachHang
+                JOIN TaiKhoan tk ON kh.MaKhachHang = tk.MaKhachHang
+                WHERE tk.TenTaiKhoan = @TenTaiKhoan";
+
+            DBConnect db = new DBConnect();
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@TenTaiKhoan", userName)
+            };
+
+            using (SqlDataReader reader = db.ThucThiReader(sqlQuery, sqlParameters))
+            {
+                while (reader.Read())
+                {
+                    LichSuDatVe lichSu = new LichSuDatVe
+                    {
+                        MaPhieuDat = Convert.ToInt32(reader["MaPhieuDat"]),
+                        NgayDat = Convert.ToDateTime(reader["NgayDat"]),
+                        MaChuyenBay = reader["MaChuyenBay"].ToString(),
+                        NgayGioDi = Convert.ToDateTime(reader["NgayGioDi"]),
+                        TenMayBay = reader["TenMayBay"].ToString(),
+                        SanBayDi = reader["SanBayDi"].ToString(),
+                        SanBayDen = reader["SanBayDen"].ToString()
+                    };
+                    lichSuDatVes.Add(lichSu);
+                }
+            }
+            return View("LichSuDatVe",lichSuDatVes);
+        }
+
+
     }
 }
