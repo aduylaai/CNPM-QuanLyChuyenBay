@@ -123,9 +123,12 @@
     <Compile Include="Controllers\DatVeController.cs" />
     <Compile Include="Controllers\HangGheController.cs" />
     <Compile Include="Controllers\HangHangKhongController.cs" />
+    <Compile Include="Controllers\HangKhachController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\LoTrinhController.cs" />
     <Compile Include="Controllers\MayBayController.cs" />
+    <Compile Include="Controllers\PhieuDatController.cs" />
     <Compile Include="Controllers\SanBayController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Global.asax.cs">
@@ -140,6 +143,11 @@
     <Compile Include="Models\LoTrinh.cs" />
     <Compile Include="Models\MayBay.cs" />
     <Compile Include="Models\PHanhKhach.cs" />
+    <Compile Include="Models\HanhKhach.cs" />
+    <Compile Include="Models\KhachHang.cs" />
+    <Compile Include="Models\LoTrinh.cs" />
+    <Compile Include="Models\MayBay.cs" />
+    <Compile Include="Models\PhieuDat.cs" />
     <Compile Include="Models\SanBay.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,7 +191,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\TaiKhoan\Index.cshtml" />
     <Content Include="Views\TaiKhoan\Details.cshtml" />
-    <Content Include="Views\TaiKhoan\Create.cshtml" />
     <Content Include="Views\TaiKhoan\Edit.cshtml" />
     <Content Include="Views\TaiKhoan\Delete.cshtml" />
     <Content Include="Views\SanBay\Index.cshtml" />
@@ -214,6 +221,17 @@
     <Content Include="Views\DatVe\KetQuaTimKiem.cshtml" />
     <Content Include="Views\DatVe\DienThongTinKhach.cshtml" />
     <Content Include="Views\DatVe\XacNhanTTKhach.cshtml" />
+    <Content Include="Views\KhachHang\Index.cshtml" />
+    <Content Include="Views\KhachHang\Create.cshtml" />
+    <Content Include="Views\TaiKhoan\Create.cshtml" />
+    <Content Include="Views\KhachHang\Edit.cshtml" />
+    <Content Include="Views\KhachHang\Delete.cshtml" />
+    <Content Include="Views\HangKhach\Index.cshtml" />
+    <Content Include="Views\HangKhach\Create.cshtml" />
+    <Content Include="Views\HangKhach\Edit.cshtml" />
+    <Content Include="Views\HangKhach\Delete.cshtml" />
+    <Content Include="Views\PhieuDat\Index.cshtml" />
+    <Content Include="Views\PhieuDat\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

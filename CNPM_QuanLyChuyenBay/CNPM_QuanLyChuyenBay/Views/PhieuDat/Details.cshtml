@@ -1,0 +1,50 @@
+﻿@model CNPM_QuanLyChuyenBay.Models.PhieuDat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PhieuDat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaPhieuDat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaPhieuDat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaKhachHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaKhachHang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayDat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayDat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaBooking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaBooking)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MaPhieuDat }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
