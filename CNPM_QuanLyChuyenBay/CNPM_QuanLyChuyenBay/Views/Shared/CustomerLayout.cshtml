@@ -161,8 +161,8 @@
     <header>
         <a href="#" class="logo">Cái Tôi Thấp</a>
         <nav>
-            <a href="TimKiemChuyenBay">Tìm kiếm chuyến bay</a>
-            <a href="#">Liên Hệ</a>
+            <a href="@Url.Action("TimKiemChuyenBay", "DatVe")">Tìm kiếm chuyến bay</a>
+            <a href="@Url.Action("Contact", "Home")">Liên Hệ</a>
             <a href="@Url.Action("LichSuDatVe", "DatVe")">Lịch sử đặt vé</a>
         </nav>
         <div class="auth-buttons">
@@ -213,5 +213,25 @@
     </footer>
 
     @RenderSection("Scripts", required: false)
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        //$(document).ready(() => {
+        //    $('#toggle-sidebar').click(() => {
+        //        $('#sidebar').toggleClass('active');
+        //        $('#sidebar-overlay').toggleClass('active');
+        //    });
+
+        //    $('#sidebar-overlay').click(() => {
+        //        $('#sidebar').removeClass('active');
+        //        $('#sidebar-overlay').removeClass('active');
+        //    });
+        //});
+        $(document).ready(() => {
+            $('#categories-btn').click(() => { // Nhấn vào Categories
+                $('#categories-menu').slideToggle(); // Hiển thị/Ẩn submenu
+            });
+        });
+    </script>
 </body>
 </html>

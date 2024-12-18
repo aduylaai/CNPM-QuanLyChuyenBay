@@ -2,13 +2,102 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+
+<style>
+    /* Custom styles for the Index page */
+    h2 {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table td {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        .table td a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+            .table td a:hover {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .table td a:active {
+                background-color: #0056b3;
+            }
+
+        .table .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .table .btn-primary {
+            background-color: #28a745;
+            color: white;
+        }
+
+            .table .btn-primary:hover {
+                background-color: #218838;
+            }
+
+        .table .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+            .table .btn-danger:hover {
+                background-color: #c82333;
+            }
+
+    /* Styling the Create New button */
+    .btn-create {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        .btn-create:hover {
+            background-color: #0056b3;
+        }
+</style>
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn-create" })
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -35,35 +124,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaKhachHang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoTen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiaChi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgaySinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoDienThoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaTaiKhoan)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaKhachHang }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaKhachHang }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaKhachHang })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaKhachHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoDienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaTaiKhoan)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaKhachHang }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaKhachHang }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaKhachHang }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 </table>

@@ -2,7 +2,54 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+
+<style>
+    /* Custom styles for this page */
+    .dl-horizontal dt {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .dl-horizontal dd {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #28a745;
+    }
+
+    h4 {
+        color: #343a40;
+    }
+
+    hr {
+        border: 1px solid #007bff;
+    }
+
+    .btn-custom {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        .btn-custom:hover {
+            background-color: #218838;
+        }
+
+    .back-link {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+</style>
 
 <h2>Details</h2>
 
@@ -44,7 +91,8 @@
 
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.MaPhieuDat }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaPhieuDat }, new { @class = "btn-custom" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "back-link" })
 </p>

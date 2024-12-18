@@ -53,7 +53,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">Trang bán vé máy bay Cái Tôi Thấp</a>
-                <a class="navbar-brand" href="LichSuDatVe">Lịch sử đặt vé</a>
+                <a class="navbar-brand" href="@Url.Action("LichSuDatVe", "DatVe")">Lịch sử đặt vé</a>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav navbar-right">
@@ -71,7 +71,7 @@
                     {
                         <li id="logoutButton" class="active"><a href="#" onclick="logout()" class="btn btn-danger navbar-btn">Đăng Xuất</a></li>
                     }
-                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
                 </ul>
             </div>
         </div>

@@ -3,10 +3,9 @@
     ViewBag.Title = "DienThongTinKhach";
     Layout = "~/Views/Shared/CusTomerLayout.cshtml";
 }
-@{ // Lấy thông tin chuyến bay từ TempData
-    var thongTinChuyenBay = TempData["TTChuyenBay"] as KetQuaTimKiem;
 
-    // Số lượng hành khách từ ViewBag
+@{
+    var thongTinChuyenBay = TempData["TTChuyenBay"] as KetQuaTimKiem;
     int slKhach = ViewBag.SLKhach ?? 0;
 }
 
@@ -21,12 +20,13 @@
 </div>
 
 <h2>Điền Thông Tin Hành Khách</h2>
+
 @using (Html.BeginForm("XacNhanTTKhach", "DatVe", FormMethod.Post))
 {
     for (int i = 0; i < slKhach; i++)
     {
         <div class="card mb-3">
-            <div class="card-header">
+            <div  class="card-header bg-primary text-white" style="margin-bottom: 15px;">
                 <strong>Hành Khách @(i + 1)</strong>
             </div>
             <div class="card-body">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label>Ngày Sinh:</label>
-                    <input type="text" id="NgaySinh_@(i)" name="HanhKhach[@i].NgaySinh" class="form-control" required />
+                    <input type="date" id="NgaySinh_@(i)" name="HanhKhach[@i].NgaySinh" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <label>CCCD/Passport:</label>
@@ -56,7 +56,7 @@
                         <button type="button" class="btn btn-secondary" onclick="kiemTraCCCD(@i)">Kiểm Tra</button>
                     </div>
                 </div>
-                <input type="hidden" name="idChuyenBay" value="@thongTinChuyenBay.MaChuyenBay"/> 
+                <input type="hidden" name="idChuyenBay" value="@thongTinChuyenBay.MaChuyenBay" />
             </div>
         </div>
     }
@@ -64,3 +64,51 @@
 }
 
 <script src="~/Content/ktCCCD.js"></script>
+
+<style>
+    /* Custom styles for the form */
+    h2 {
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        font-size: 1.2em;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 1.1rem;
+        padding: 10px 20px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+    }
+
+        .input-group .btn {
+            margin-left: 10px;
+        }
+
+        .input-group .form-control {
+            flex-grow: 1;
+        }
+</style>

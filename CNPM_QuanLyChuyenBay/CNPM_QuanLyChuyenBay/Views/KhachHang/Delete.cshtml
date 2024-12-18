@@ -2,11 +2,73 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+
+<style>
+    /* Custom styles for Delete page */
+    h2 {
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    h3 {
+        color: #dc3545;
+    }
+
+    .dl-horizontal dt {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .dl-horizontal dd {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    .form-actions {
+        margin-top: 20px;
+    }
+
+        .form-actions input[type="submit"] {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+            .form-actions input[type="submit"]:hover {
+                background-color: #c82333;
+            }
+
+        .form-actions a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+
+            .form-actions a:hover {
+                background-color: #e2e6ea;
+            }
+
+    .back-link {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+</style>
 
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
+
 <div>
     <h4>KhachHang</h4>
     <hr />
@@ -66,15 +128,15 @@
         <dd>
             @Html.DisplayFor(model => model.MaTaiKhoan)
         </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "back-link" })
         </div>
     }
 </div>

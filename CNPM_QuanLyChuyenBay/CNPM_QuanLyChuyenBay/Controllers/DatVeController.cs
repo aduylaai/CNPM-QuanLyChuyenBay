@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CNPM_QuanLyChuyenBay.Models;
 using CNPM_QuanLyChuyenBay.Helpers;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace CNPM_QuanLyChuyenBay.Controllers
 {
@@ -94,8 +95,11 @@ namespace CNPM_QuanLyChuyenBay.Controllers
         {
             // Tim Chuyen Bay Tra Ve View KetQua
             // Goi y: O view ketqua moi load ds HangGhe len
+            Session["SearchDeparture"] = MaSB_Di;
+            Session["SearchDestination"] = MaSB_Den;
+            Session["SearchDate"] = NgayGioDi;
 
-            ViewBag.SLKhach = SLKhach;
+            TempData["SLKhach"] = SLKhach;
 
             // Danh sách kết quả tìm kiếm
             List<KetQuaTimKiem> result = new List<KetQuaTimKiem>();
@@ -178,6 +182,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
             TempData["HangGhe"] = MaHG;
             // Trả về View và truyền danh sách kết quả
+            TempData["KetQuaTimKiem"] = result;
             return View("KetQuaTimKiem", result);
         }
 
@@ -246,7 +251,18 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
         }
 
+        public ActionResult KetQuaTimKiem()
+        {
+            List<KetQuaTimKiem> result = TempData["KetQuaTimKiem"] as List<KetQuaTimKiem>;
+            ViewBag.SLKhach = TempData["SLKhach"];
 
+            if (result == null)
+            {
+                return RedirectToAction("TimKiemChuyenBay", "Datve");
+            }
+
+            return View("KetQuaTimKiem", result);  
+        }
         public ActionResult DienThongTinKhach(int id, int? SLKhach)
         {
             KetQuaTimKiem ThongTinChuyenBay = LayChuyenBay(id);

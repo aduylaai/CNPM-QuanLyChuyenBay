@@ -196,10 +196,12 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
                                 if (Session["SearchDeparture"] != null && Session["SearchDestination"] != null)
                                 {
-                                    return RedirectToAction("KetQuaTimKiemChuyenBay", "DatVe");
+                                    return RedirectToAction("KetQuaTimKiem", "DatVe");
                                 }
-
-                                return RedirectToAction("TimKiemChuyenBay", "DatVe");
+                                else
+                                {
+                                    return RedirectToAction("TimKiemChuyenBay", "DatVe");
+                                }
                             }
                             else
                             {
