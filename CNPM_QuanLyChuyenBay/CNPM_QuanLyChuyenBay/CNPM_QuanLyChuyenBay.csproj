@@ -148,6 +148,7 @@
     <Compile Include="Models\LoTrinh.cs" />
     <Compile Include="Models\MayBay.cs" />
     <Compile Include="Models\PhieuDat.cs" />
+    <Compile Include="Models\PHoaDon.cs" />
     <Compile Include="Models\SanBay.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,6 +233,7 @@
     <Content Include="Views\HangKhach\Delete.cshtml" />
     <Content Include="Views\PhieuDat\Index.cshtml" />
     <Content Include="Views\PhieuDat\Details.cshtml" />
+    <Content Include="Views\DatVe\XemTruocThanhToan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -394,6 +394,16 @@ select * from HangGhe
 Select * from hanhkhach
 Select * from PhieuDat
 Select * from Ve
+select * from TrangThaiVe
+Select * from HoaDon
+select * from GiaHangGhe
+
+select Gia
+from GiaHangGhe ghg
+join HangHangKhong hhk on ghg.MaHHK = hhk.MaHangHangKhong
+where MaHangGhe = 1 and hhk.TenHangHangKhong = N'Vietnam Airlines' and ghg.MaHangGhe = 1
+select * from GiaHangGhe
 
 
+select * from HanhKhach where CCCD_Passport = '123456789'
 

@@ -90,7 +90,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
         [HttpPost]
 
-        public ActionResult TimKiemChuyenBay(int? MaSB_Di, int? MaSB_Den, int? MaHHK, DateTime? NgayGioDi, int? SLKhach)
+        public ActionResult TimKiemChuyenBay(int? MaSB_Di, int? MaSB_Den, int? MaHHK, DateTime? NgayGioDi, int? SLKhach, int MaHG)
         {
             // Tim Chuyen Bay Tra Ve View KetQua
             // Goi y: O view ketqua moi load ds HangGhe len
@@ -176,6 +176,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 dBConn.closeConnect();
             }
 
+            TempData["HangGhe"] = MaHG;
             // Trả về View và truyền danh sách kết quả
             return View("KetQuaTimKiem", result);
         }
@@ -307,7 +308,43 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             KetQuaTimKiem ThongTinChuyenBay = LayChuyenBay(idChuyenBay);
 
             TempData["TTChuyenBay"] = ThongTinChuyenBay;
+            TempData["DanhSachHanhKhach"] = HanhKhach;
             return View(HanhKhach);
+        }
+
+        [HttpPost]
+        public ActionResult XemTruocThanhToan(int idChuyenBay)
+        {
+            KetQuaTimKiem thongTinChuyenBay = LayChuyenBay(idChuyenBay);
+            List<PHanhKhach> hanhKhach = TempData["DanhSachHanhKhach"] as List<PHanhKhach>;
+            int maHG = int.Parse(TempData["HangGhe"].ToString());
+            //Tao 1 obj HoaDon ==> TinhTongTien + Add MaPhieuDat + Add NgayHienTai ==> Show ra man hinh Tong tien
+
+            //Lay gia hang ghe
+            string cauTruyVan = @"select Gia
+                                  from GiaHangGhe ghg
+                                  join HangHangKhong hhk on ghg.MaHHK = hhk.MaHangHangKhong
+                                  where MaHangGhe = "+maHG+" and hhk.TenHangHangKhong = N'"+thongTinChuyenBay.TenHangHangKhong+"'";
+            SqlDataReader reader = dBConn.ThucThiReader(cauTruyVan);
+            decimal GiaHangGhe = 0;
+            while (reader.Read())
+            {
+                GiaHangGhe = decimal.Parse(reader["Gia"].ToString());
+            }
+            reader.Close();
+
+            //Tao hoa don
+            PHoaDon hoaDon = new PHoaDon();
+            hoaDon.NgayDat = DateTime.Now;
+            hoaDon.TinhTongTien((float)thongTinChuyenBay.GiaBay, (float)GiaHangGhe);
+
+            TempData["ThongTinChuyenBay"] = thongTinChuyenBay;
+            TempData["DanhSachHanhKhach"] = hanhKhach;
+            TempData["MaHG"] = maHG;
+            TempData["HoaDon"] = hoaDon;
+            ViewBag.SLKhach = hanhKhach.Count();
+
+            return View(hoaDon);
         }
     }
 }

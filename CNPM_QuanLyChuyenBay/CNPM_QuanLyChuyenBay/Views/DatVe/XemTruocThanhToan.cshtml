@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "XemTruocThanhToan";
+}
+
+@using CNPM_QuanLyChuyenBay.Models
+
+@{
+    var thongTinChuyenBay = TempData["ThongTinChuyenBay"] as KetQuaTimKiem;
+    var hoaDon = TempData["HoaDon"] as PHoaDon;
+}
+
+<h2>Thông Tin Chuyến Bay</h2>
+<div>
+    <p><strong>Chuyến Bay:</strong> @thongTinChuyenBay.MaChuyenBay</p>
+    <p><strong>Hạng Hàng Không:</strong> @thongTinChuyenBay.TenHangHangKhong</p>
+    <p><strong>Sân Bay Đi:</strong> @thongTinChuyenBay.TenSB_Di</p>
+    <p><strong>Sân Bay Đến:</strong> @thongTinChuyenBay.TenSB_Den</p>
+    <p><strong>Ngày Giờ Đi:</strong> @thongTinChuyenBay.NgayGioDi</p>
+    <p><strong>Ngày Giờ Đến:</strong> @thongTinChuyenBay.NgayGioDen</p>
+</div>
+
+<h2>Thông tin hóa đơn</h2>
+<p>Số lượng vé: @ViewBag.SLKhach</p>
+<p>Tổng tiền: @hoaDon.TongTien</p>
+<p>Ngày Đặt: @hoaDon.NgayDat.ToString()</p>
+
+<!-- Bộ đếm ngược -->
+<h3>Thời gian còn lại: <span id="countdown">03:00</span></h3>
+
+<!-- Thông báo hết thời gian -->
+<div id="timeoutMessage" style="color: red; display: none;">
+    <p>Đã hết thời gian thanh toán chuyến bay. Vui lòng đặt lại.</p>
+</div>
+
+<script type="text/javascript">
+    var countdownElement = document.getElementById('countdown');
+    var timeoutMessage = document.getElementById('timeoutMessage');
+    var totalSeconds = 10; // 3 minutes = 180 seconds
+
+    function updateCountdown() {
+        var minutes = Math.floor(totalSeconds / 60);
+        var seconds = totalSeconds % 60;
+
+        // Định dạng lại phút và giây để hiển thị dưới dạng 00:00
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        countdownElement.textContent = minutes + ":" + seconds;
+
+        if (totalSeconds <= 0) {
+            // Hiển thị thông báo hết thời gian
+            timeoutMessage.style.display = 'block'; // Hiển thị thông báo lỗi
+
+            // Chuyển hướng về trang tìm kiếm chuyến bay sau khi hiển thị thông báo
+            setTimeout(function() {
+                window.location.href = '@Url.Action("TimKiemChuyenBay", "DatVe")'; // Chuyển về trang TimKiemChuyenBay
+            }, 3000); // Chờ 3 giây để người dùng kịp đọc thông báo trước khi chuyển hướng
+        } else {
+            totalSeconds--;
+            setTimeout(updateCountdown, 1000); // Cập nhật mỗi giây
+        }
+    }
+
+    // Khởi động bộ đếm ngược
+    updateCountdown();
+</script>

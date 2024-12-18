@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<CNPM_QuanLyChuyenBay.Models.PHanhKhach>
-
+@using Newtonsoft.Json
 @{
     ViewBag.Title = "XacNhanTTKhach";
 }
 
 @using CNPM_QuanLyChuyenBay.Models
 
-@{ 
+@{
     var thongTinChuyenBay = TempData["TTChuyenBay"] as KetQuaTimKiem;
+    //var danhSachHanhKhach = TempData["DanhSachHanhKhach"] as List<PHanhKhach>;
 }
 
 <h2>Thông Tin Chuyến Bay</h2>
@@ -78,3 +79,12 @@
     }
 
 </table>
+
+@using (Html.BeginForm("XemTruocThanhToan", "DatVe", FormMethod.Post))
+{
+    @Html.Hidden("idChuyenBay", thongTinChuyenBay.MaChuyenBay)
+    @*@Html.Hidden("dsHanhKhach", JsonConvert.SerializeObject(danhSachHanhKhach))*@ 
+    <button type="submit">Xem thanh toán</button>
+}
+
+
