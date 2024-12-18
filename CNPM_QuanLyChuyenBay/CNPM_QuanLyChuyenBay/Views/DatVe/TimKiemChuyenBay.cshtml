@@ -1,70 +1,243 @@
 ﻿@{
     ViewBag.Title = "Tìm kiếm chuyến bay";
+    Layout = null;
 }
 
-<div class="content col-md-5 bg-dark text-white p-4 d-flex flex-column justify-content-center">
-    <h2>Tìm kiếm chuyến bay</h2>
-</div>
-<div class="col-md-12">
-    <div class="content bg-dark text-white p-4">
-        <hr />
-        @using (Html.BeginForm("TimKiemChuyenBay", "DatVe", FormMethod.Post))
-        {
-            <div class="form-group">
-                <label for="DiemDi">Điểm đi:</label>
-                <select id="DiemDi" name="MaSB_Di" class="form-control">
-                    <option value="">Chọn sân bay đi</option>
-                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.SB)
-                    {
-                        <option value="@item.Value">@item.Text</option>
-                    }
-                </select>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
 
-            <div class="form-group">
-                <label for="DiemDen">Điểm đến:</label>
-                <select id="DiemDen" name="MaSB_Den" class="form-control">
-                    <option value="">Chọn sân bay đến</option>
-                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.SB)
-                    {
-                        <option value="@item.Value">@item.Text</option>
-                    }
-                </select>
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <div class="form-group">
-                <label for="HangHangKhong">Hãng hàng không:</label>
-                <select id="HangHangKhong" name="MaHHK" class="form-control">
-                    <option value="">Chọn hãng hàng không</option>
-                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.HHK)
-                    {
-                        <option value="@item.Value">@item.Text</option>
-                    }
-                </select>
-            </div>
+    <title>@ViewBag.Title</title>
 
-            <div class="form-group">
-                <label for="NgayDi">Ngày đi:</label>
-                <input id="NgayDi" name="NgayGioDi" type="date" class="form-control" />
-            </div>
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
 
-            <div class="form-group">
-                <label for="SoLuongKhach">Số lượng khách:</label>
-                <input id="SoLuongKhach" name="SLKhach" type="number" class="form-control" min="1" max="3" />
-            </div>
+    <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="~/Content/1bootstrap.min.css" />
 
-            <div class="form-group">
-                <label for="HangGhe">Hạng ghế:</label>
-                <select id="HangGhe" name="MaHG" class="form-control">
-                    <option value="">Chọn hạng ghế</option>
-                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.HG)
-                    {
-                        <option value="@item.Value">@item.Text</option>
-                    }
-                </select>
-            </div>
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="~/Content/style.css" />
 
-            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    <style>
+        .navbar-default .navbar-nav > li > a {
+            color: #FFFFFF; /* Màu chữ mặc định (trắng) */
         }
+
+            .navbar-default .navbar-nav > li > a:hover {
+                color: #000; /* Màu chữ khi hover (đen) */
+            }
+
+        .navbar-default .navbar-brand {
+            color: #FFFFFF; /* Màu chữ logo (trắng) */
+        }
+
+            .navbar-default .navbar-brand:hover {
+                color: #000; /* Màu chữ logo khi hover (đen) */
+            }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Trang bán vé máy bay Cái Tôi Thấp</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Lời chào ở đầu -->
+                    @if (Session["UserName"] != null)
+                    {
+                        <li class="navbar-text" style="color: white;">Chào, @Session["UserName"]!</li>
+                    }
+                    <!-- Các nút đăng nhập, đăng ký, đăng xuất -->
+                    @if (Session["UserName"] == null)
+                    {
+                        <li id="loginButton" class="active"><a href="/TaiKhoan/Login" class="btn btn-primary navbar-btn">Đăng nhập</a></li>
+                        <li id="registerButton" class="active"><a href="/TaiKhoan/Create" class="btn btn-primary navbar-btn">Đăng Ký</a></li>
+                    }
+                    else
+                    {
+                        <li id="logoutButton" class="active"><a href="#" onclick="logout()" class="btn btn-danger navbar-btn">Đăng Xuất</a></li>
+                    }
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="booking-cta">
+                            <h1>HÃY ĐẶT VÉ MÁY BAY CHO CHUYẾN ĐI CỦA BẠN NGAY BÂY GIỜ</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-md-offset-1">
+                        <div class="booking-form">
+                            @using (Html.BeginForm("TimKiemChuyenBay", "DatVe", FormMethod.Post))
+                            {
+                                <div class="row">
+                                    <!-- Sân bay đi -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Flying From</span>
+                                            <select id="DiemDi" name="MaSB_Di" class="form-control">
+                                                <option value="">Chọn sân bay đi</option>
+                                                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.SB)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sân bay đến -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Flying To</span>
+                                            <select id="DiemDen" name="MaSB_Den" class="form-control">
+                                                <option value="">Chọn sân bay đến</option>
+                                                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.SB)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ngày đi -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Departing</span>
+                                            <input id="NgayDi" name="NgayGioDi" type="date" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                    <!-- Ngày về -->
+                                    @*<div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Returning</span>
+                                            <input id="NgayVe" name="NgayGioVe" type="date" class="form-control" />
+                                        </div>
+                                    </div>*@
+                                </div>
+
+                                <!-- Số lượng khách -->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span class="form-label">Number of Passengers</span>
+                                            <div class="form-control" style="display: flex; align-items: center; justify-content: space-between; padding: 0;">
+                                                <button type="button" style="width: 30px; height: 30px; border: none; background: none; font-size: 18px;" onclick="decreaseGuestCount()">-</button>
+                                                <input type="number" id="guestCount" name="SLKhach" value="1" min="1" max="9"
+                                                       style="width: 50px; height: 30px; text-align: center; border: none; outline: none;" readonly>
+                                                <button type="button" style="width: 30px; height: 30px; border: none; background: none; font-size: 18px;" onclick="increaseGuestCount()">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Hạng ghế -->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span class="form-label">Class</span>
+                                            <select id="HangGhe" name="MaHG" class="form-control">
+                                                <option value="">Chọn hạng ghế</option>
+                                                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.HG)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Hãng hàng không -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Airline</span>
+                                            <select id="HangHangKhong" name="MaHHK" class="form-control">
+                                                <option value="">Chọn hãng hàng không</option>
+                                                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.HHK)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Mã giảm giá -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Discount Code</span>
+                                            <input id="MaGiamGia" name="MaGiamGia" type="text" class="form-control" placeholder="Nhập mã giảm giá" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Nút tìm kiếm -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary">Tìm kiếm chuyến bay</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        // Hàm giảm số lượng khách
+        function decreaseGuestCount() {
+            const guestCountInput = document.getElementById("guestCount");
+            let count = parseInt(guestCountInput.value);
+            if (count > 1) {
+                guestCountInput.value = count - 1;
+            }
+        }
+
+        // Hàm tăng số lượng khách
+        function increaseGuestCount() {
+            const guestCountInput = document.getElementById("guestCount");
+            let count = parseInt(guestCountInput.value);
+            if (count < 9) {
+                guestCountInput.value = count + 1;
+            }
+        }
+
+        // Hàm đăng xuất
+        function logout() {
+            // Xóa Session UserName
+            window.location.href = '/TaiKhoan/Logout'; // Gọi API logout trên server
+        }
+    </script>
+
+</body>
+
+</html>

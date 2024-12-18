@@ -154,11 +154,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\1bootstrap.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ktCCCD.js" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -218,7 +220,6 @@
     <Content Include="Views\LoTrinh\Edit.cshtml" />
     <Content Include="Views\Shared\AdminLayout.cshtml" />
     <Content Include="Views\Shared\CustomerLayout.cshtml" />
-    <Content Include="Views\DatVe\TimKiemChuyenBay.cshtml" />
     <Content Include="Views\DatVe\KetQuaTimKiem.cshtml" />
     <Content Include="Views\DatVe\DienThongTinKhach.cshtml" />
     <Content Include="Views\DatVe\XacNhanTTKhach.cshtml" />
@@ -234,6 +235,8 @@
     <Content Include="Views\PhieuDat\Index.cshtml" />
     <Content Include="Views\PhieuDat\Details.cshtml" />
     <Content Include="Views\DatVe\XemTruocThanhToan.cshtml" />
+    <Content Include="Views\TaiKhoan\Login.cshtml" />
+    <Content Include="Views\DatVe\TimKiemChuyenBay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

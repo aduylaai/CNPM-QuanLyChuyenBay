@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<div class="login-container">
+    <div class="login-box">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="/Content/images/logo.jpg" alt="Logo" />
+        </div>
+        <h1>Login</h1>
+        <!-- Form bắt đầu -->
+        @using (Html.BeginForm("Login", "TaiKhoan", FormMethod.Post, new { id = "loginForm" }))
+        {
+            <!-- Tài khoản -->
+            <div class="input-group">
+                <input type="text" id="pTaiKhoan" name="pTaiKhoan" placeholder="Tài khoản" class="login-input" required />
+            </div>
+            <!-- Mật khẩu -->
+            <div class="input-group">
+                <input type="password" id="pMatKhau" name="pMatKhau" placeholder="Mật khẩu" class="login-input" required />
+                <label style="display: flex; align-items: center; margin-top: 10px;">
+                    <input type="checkbox" id="showPassword" style="margin-right: 5px;" /> Hiển thị mật khẩu
+                </label>
+            </div>
+            <!-- Hiển thị lỗi -->
+            <div class="error-message" style="color: red;">
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <p>@ViewBag.ErrorMessage</p>
+                }
+            </div>
+            <!-- Nút đăng nhập -->
+            <button type="submit" class="btn-login">Đăng Nhập</button>
+        }
+        <!-- Link đăng ký -->
+        <a href="/TaiKhoan/Create" class="btn-register">Đăng Ký</a>
+        <a href="/" class="btn-back">Quay lại trang chủ</a>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .login-box {
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .logo img {
+        max-width: 100px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        color: #333333;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .login-input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border: 1px solid #dcdcdc;
+        border-radius: 4px;
+        font-size: 1rem;
+        background-color: #f9f9f9;
+    }
+
+    .btn-login {
+        background: #2ecc71;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+        .btn-login:hover {
+            background: #27ae60;
+        }
+
+    .btn-register {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        font-size: 1rem;
+        color: #3498db;
+    }
+
+        .btn-register:hover {
+            color: #2980b9;
+        }
+
+    .btn-back {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        font-size: 1rem;
+        color: #e74c3c;
+    }
+
+        .btn-back:hover {
+            color: #c0392b;
+        }
+
+    .error-message {
+        margin-top: 10px;
+    }
+</style>
+
+<script>
+    document.getElementById("showPassword").addEventListener("change", function () {
+        const passwordInput = document.getElementById("pMatKhau");
+        passwordInput.type = this.checked ? "text" : "password";
+    });
+
+    document.getElementById("loginForm").onsubmit = function (e) {
+        const taiKhoan = document.getElementById("pTaiKhoan").value.trim();
+        const matKhau = document.getElementById("pMatKhau").value.trim();
+
+        if (!taiKhoan || !matKhau) {
+            e.preventDefault();
+            alert("Vui lòng nhập đầy đủ thông tin tài khoản và mật khẩu.");
+        }
+    };
+</script>

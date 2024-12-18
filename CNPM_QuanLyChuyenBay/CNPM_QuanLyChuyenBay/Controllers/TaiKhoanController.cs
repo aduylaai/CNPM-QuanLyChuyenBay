@@ -11,7 +11,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 {
     public class TaiKhoanController : Controller
     {
-        DBConnect dbConn = new DBConnect(".", "CNPM_QuanLyBanVeMayBay");
+        DBConnect dbConn = new DBConnect(@"DUNX\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
         public TaiKhoanController()
         {
             dbConn.openConnect();
@@ -161,5 +161,68 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 return View();
             }
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(string pTaiKhoan, string pMatKhau)
+        {
+            // Kiểm tra giá trị đầu vào
+            if (string.IsNullOrEmpty(pTaiKhoan) || string.IsNullOrEmpty(pMatKhau))
+            {
+                ViewBag.ErrorMessage = "Vui lòng nhập đầy đủ tài khoản và mật khẩu.";
+                return View();
+            }
+
+            try
+            {
+                string query = "SELECT * FROM TaiKhoan WHERE TenTaiKhoan = @TenTaiKhoan AND MatKhau = @MatKhau";
+
+                using (SqlConnection conn = new SqlConnection(dbConn.strConnect))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@TenTaiKhoan", pTaiKhoan);
+                        cmd.Parameters.AddWithValue("@MatKhau", pMatKhau);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Session["UserName"] = pTaiKhoan;
+
+                                if (Session["SearchDeparture"] != null && Session["SearchDestination"] != null)
+                                {
+                                    return RedirectToAction("KetQuaTimKiemChuyenBay", "DatVe");
+                                }
+
+                                return RedirectToAction("TimKiemChuyenBay", "DatVe");
+                            }
+                            else
+                            {
+                                ViewBag.ErrorMessage = "Tài khoản hoặc mật khẩu không đúng.";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Có lỗi xảy ra: " + ex.Message;
+            }
+
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Session["UserName"] = null;
+
+            return RedirectToAction("Login", "TaiKhoan");
+        }
+
     }
 }
