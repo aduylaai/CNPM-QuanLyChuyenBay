@@ -50,7 +50,18 @@
 
             <div class="form-group">
                 <label for="SoLuongKhach">Số lượng khách:</label>
-                <input id="SoLuongKhach" name="SLKhach" type="number" class="form-control" min="1" />
+                <input id="SoLuongKhach" name="SLKhach" type="number" class="form-control" min="1" max="3" />
+            </div>
+
+            <div class="form-group">
+                <label for="HangGhe">Hạng ghế:</label>
+                <select id="HangGhe" name="MaHG" class="form-control">
+                    <option value="">Chọn hạng ghế</option>
+                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.HG)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>

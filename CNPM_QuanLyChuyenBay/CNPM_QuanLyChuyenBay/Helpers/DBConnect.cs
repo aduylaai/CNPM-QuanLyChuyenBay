@@ -60,7 +60,7 @@ namespace CNPM_QuanLyChuyenBay.Helpers
         public DBConnect()
         {
 
-            strServerName = "."; strDBName = "QuanLyBanVeMayBay";
+            strServerName = "ADUYLAAI"; strDBName = "CNPM-QuanLyBanVeMayBay";
 
             strConnect = @"Data Source=" + strServerName + ";Initial Catalog=" + strDBName + ";Integrated Security=true";
             conn = new SqlConnection(strConnect); //Khởi tạo đối tượng kết nối đến CSDL
@@ -150,6 +150,31 @@ namespace CNPM_QuanLyChuyenBay.Helpers
             }
         }
 
+        public SqlDataReader ThucThiReader(string cauTruyVan, SqlParameter[] sqlParameters)
+        {
+            //using (SqlCommand cmd = new SqlCommand(cauTruyVan, conn))
+            //{
+            //    SqlDataReader reader = cmd.ExecuteReader();
+            //    return reader;
+            //}
+            try
+            {
+                // Đảm bảo kết nối được mở trước khi thực thi
+                openConnect();
+
+                using (SqlCommand cmd = new SqlCommand(cauTruyVan, conn))
+                {
+                    cmd.Parameters.AddRange(sqlParameters);
+                    SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    return reader;
+                }
+            }
+            catch (Exception ex)
+            {
+                closeConnect();
+                throw new Exception("Lỗi khi thực thi câu truy vấn: " + ex.Message);
+            }
+        }
 
     }
 }

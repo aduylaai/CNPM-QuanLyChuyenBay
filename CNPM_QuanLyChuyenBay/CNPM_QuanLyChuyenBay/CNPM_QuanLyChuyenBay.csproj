@@ -136,8 +136,10 @@
     <Compile Include="Models\ChuyenBay.cs" />
     <Compile Include="Models\HangGhe.cs" />
     <Compile Include="Models\HangHangKhong.cs" />
+    <Compile Include="Models\KetQuaTimKiem.cs" />
     <Compile Include="Models\LoTrinh.cs" />
     <Compile Include="Models\MayBay.cs" />
+    <Compile Include="Models\PHanhKhach.cs" />
     <Compile Include="Models\SanBay.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +149,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ktCCCD.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -208,6 +211,9 @@
     <Content Include="Views\Shared\AdminLayout.cshtml" />
     <Content Include="Views\Shared\CustomerLayout.cshtml" />
     <Content Include="Views\DatVe\TimKiemChuyenBay.cshtml" />
+    <Content Include="Views\DatVe\KetQuaTimKiem.cshtml" />
+    <Content Include="Views\DatVe\DienThongTinKhach.cshtml" />
+    <Content Include="Views\DatVe\XacNhanTTKhach.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

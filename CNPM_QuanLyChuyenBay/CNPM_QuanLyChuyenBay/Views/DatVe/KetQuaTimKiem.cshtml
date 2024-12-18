@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CNPM_QuanLyChuyenBay.Models.KetQuaTimKiem>
+
+@{
+    ViewBag.Title = "KetQuaTimKiem";
+}
+
+<h2>KetQuaTimKiem</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaChuyenBay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHangHangKhong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenSB_Di)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenSB_Den)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SLGhePhoThong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SLGheThuongGia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayGioDi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayGioDen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaBay)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaChuyenBay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenHangHangKhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenSB_Di)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenSB_Den)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SLGhePhoThong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SLGheThuongGia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayGioDi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayGioDen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiaBay)
+        </td>
+        <td>
+            @Html.ActionLink("Đặt vé ngay!", "DienThongTinKhach", new { id=item.MaChuyenBay, SLKhach = ViewBag.SLKhach  }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

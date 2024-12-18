@@ -33,22 +33,31 @@ CREATE TABLE KhachHang (
 );
 GO
 
--- Bảng 'Hành khách'
--- Bo Email + SDT
+
 CREATE TABLE HanhKhach (
     MaHanhKhach INT IDENTITY(1,1) PRIMARY KEY,
     HoTen NVARCHAR(100),
-    DiaChi NVARCHAR(255),
     GioiTinh NVARCHAR(10),
     QuocTich NVARCHAR(50),
     NgaySinh DATE CHECK (NgaySinh <= GETDATE()),
-    SoDienThoai NVARCHAR(20) UNIQUE,
-    Email NVARCHAR(100),
     CCCD_Passport NVARCHAR(20) UNIQUE,
     MaKhachHang INT,
     CONSTRAINT FK_HANHKHACH_KHACHHANG FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
 );
 GO
+
+-- Update
+ALTER TABLE HanhKhach
+DROP CONSTRAINT UQ__HanhKhac__0389B7BD99EC6B30;
+
+
+ALTER TABLE HanhKhach
+DROP COLUMN Email, SoDienThoai, DiaChi;
+GO
+
+
+
+
 
 -- Bảng 'Sân bay'
 CREATE TABLE SanBay (
@@ -225,11 +234,11 @@ VALUES
 GO
 
 -- Dữ liệu bảng 'Hành khách'
-INSERT INTO HanhKhach (HoTen, DiaChi, GioiTinh, QuocTich, NgaySinh, SoDienThoai, Email, CCCD_Passport, MaKhachHang)
+INSERT INTO HanhKhach (HoTen, GioiTinh, QuocTich, NgaySinh, CCCD_Passport, MaKhachHang)
 VALUES
-(N'Nguyễn Văn A', N'Hà Nội', N'Nam', N'Việt Nam', '1990-05-12', N'0123456789', N'van.a@gmail.com', N'123456789', 1),
-(N'Lê Thị B', N'Hồ Chí Minh', N'Nữ', N'Việt Nam', '1985-03-25', N'0987654321', N'le.b@gmail.com', N'987654321', 2),
-(N'Phạm Văn C', N'Đà Nẵng', N'Nam', N'Việt Nam', '1995-08-15', N'0912345678', N'pham.c@gmail.com', N'112233445', 3);
+(N'Nguyễn Văn A', N'Nam', N'Việt Nam', '1990-05-12', N'123456789', 1),
+(N'Lê Thị B', N'Nữ', N'Việt Nam', '1985-03-25', N'987654321', 2),
+(N'Phạm Văn C', N'Nam', N'Việt Nam', '1995-08-15', N'112233445', 3);
 GO
 
 -- Dữ liệu bảng 'Sân bay'
@@ -279,8 +288,8 @@ VALUES
 (3, 1, 3, 3, 1000000); -- VietJet Air, Hồ Chí Minh -> Đà Nẵng
 GO
 Update ChuyenBay
-Set SLGhePhoThong = 280, SLGheThuongGia = 20
-Where MaMayBay = 3
+Set SLGhePhoThong = 170, SLGheThuongGia = 10
+Where MaMayBay = 2
 
 select * from ChuyenBay
 select * from MayBay
@@ -355,3 +364,36 @@ select * from Ve
 select * from PhieuDat
 select * from chuyenbay
 select * from LoTrinh
+select * from HangGhe
+
+  SELECT 
+                cb.MaChuyenBay, 
+                hhk.TenHangHangKhong, 
+                sb_di.TenSanBay AS DiemDi, 
+                sb_den.TenSanBay AS DiemDen, 
+                cb.NgayGioDi, 
+                cb.NgayGioDen,
+                cb.SLGhePhoThong,
+                cb.SLGheThuongGia,
+                cb.GiaBay
+            FROM 
+                ChuyenBay cb
+            JOIN 
+                LoTrinh lt ON lt.MaLoTrinh = cb.MaLoTrinh
+            JOIN 
+                HangHangKhong hhk ON hhk.MaHangHangKhong = cb.MaHangHangKhong
+            JOIN 
+                SanBay sb_di ON sb_di.MaSanBay = lt.MaSB_Di
+            JOIN 
+                SanBay sb_den ON sb_den.MaSanBay = lt.MaSB_Den
+            WHERE
+                cb.MaChuyenBay = 1
+
+				select * from HanhKhach
+
+Select * from hanhkhach
+Select * from PhieuDat
+Select * from Ve
+
+
+
