@@ -2,86 +2,107 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<style>
+    h2 {
+        text-align: center;
+        color: #343a40;
+        margin-bottom: 20px;
+    }
 
-<h2>Index</h2>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+        text-align: left;
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaHanhKhach)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QuocTich)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SoDienThoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CCCD_Passport)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaKhachHang)
-        </th>
-        <th></th>
-    </tr>
+        .table th, .table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaHanhKhach)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoTen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiaChi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GioiTinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QuocTich)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgaySinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoDienThoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CCCD_Passport)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaKhachHang)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaHanhKhach}) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaHanhKhach }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaHanhKhach })
-        </td>
-    </tr>
-}
+        .table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #495057;
+        }
 
-</table>
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-group a {
+        margin-right: 5px;
+    }
+
+    p {
+        text-align: right;
+    }
+</style>
+
+<div class="container">
+    <h2>Danh Sách Hành Khách</h2>
+    <p>
+        @Html.ActionLink("Tạo Mới Hành Khách", "Create", null, new { @class = "btn" })
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MaHanhKhach)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().HoTen)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DiaChi)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().GioiTinh)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().QuocTich)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().NgaySinh)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().SoDienThoai)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CCCD_Passport)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MaKhachHang)</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MaHanhKhach)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GioiTinh)</td>
+                    <td>@Html.DisplayFor(modelItem => item.QuocTich)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgaySinh.ToString("dd/MM/yyyy"))</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoDienThoai)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CCCD_Passport)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaKhachHang)</td>
+                    <td class="btn-group">
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaHanhKhach }, new { @class = "btn" })
+                        @Html.ActionLink("Chi Tiết", "Details", new { id = item.MaHanhKhach }, new { @class = "btn" })
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaHanhKhach }, new { @class = "btn" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

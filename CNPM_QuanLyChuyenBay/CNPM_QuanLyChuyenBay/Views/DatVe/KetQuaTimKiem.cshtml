@@ -2,14 +2,101 @@
 
 @{
     ViewBag.Title = "KetQuaTimKiem";
-    Layout = "~/Views/Shared/CusTomerLayout.cshtml";
+    Layout = "~/Views/Shared/CusTomerLayout.cshtml";  // Sử dụng layout hiện tại
 }
+
+<!-- CSS trực tiếp trong view -->
+<style>
+    /* Thiết lập kiểu chung cho bảng */
+    table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+    }
+
+    /* Thiết lập kiểu cho các ô trong bảng */
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    /* Thêm màu nền cho các tiêu đề của bảng */
+    th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    /* Thêm màu nền cho dòng khi hover */
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Tạo kiểu cho liên kết (ActionLinks) */
+    a {
+        text-decoration: none;
+        color: #007bff;
+        padding: 5px 10px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+        /* Thay đổi màu sắc của liên kết khi hover */
+        a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+    /* Cải thiện kiểu cho nút "Create New" */
+    p a {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+        p a:hover {
+            background-color: #218838;
+        }
+
+    /* Cải thiện cách hiển thị tiêu đề */
+    h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    /* Thiết lập padding và margin cho trang */
+    body {
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    td a {
+        display: block; /* Mỗi liên kết chiếm một dòng */
+        margin-bottom: 8px; /* Khoảng cách giữa các liên kết */
+        text-decoration: none; /* Loại bỏ gạch chân */
+        color: #007bff; /* Màu chữ xanh dương */
+    }
+
+        td a:last-child {
+            margin-bottom: 0; /* Xóa khoảng cách dưới cùng */
+        }
+
+        td a:hover {
+            text-decoration: underline; /* Hiệu ứng gạch chân khi hover */
+        }
+</style>
 
 <h2>KetQuaTimKiem</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success" })
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -42,41 +129,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaChuyenBay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenHangHangKhong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenSB_Di)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenSB_Den)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SLGhePhoThong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SLGheThuongGia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayGioDi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayGioDen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GiaBay)
-        </td>
-        <td>
-            @Html.ActionLink("Đặt vé ngay!", "DienThongTinKhach", new { id=item.MaChuyenBay, SLKhach = ViewBag.SLKhach  }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaChuyenBay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHangHangKhong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSB_Di)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSB_Den)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SLGhePhoThong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SLGheThuongGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayGioDi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayGioDen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaBay)
+            </td>
+            <td>
+                @if (Session["UserName"] != null)
+                {
+                    @Html.ActionLink("Đặt vé ngay!", "DienThongTinKhach", new { id = item.MaChuyenBay, SLKhach = ViewBag.SLKhach })
+                }
+                else
+                {
+                    <span>Bạn cần đăng nhập để đặt vé.</span>
+                }
+            </td>
 
+
+        </tr>
+    }
 </table>

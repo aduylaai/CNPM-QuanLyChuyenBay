@@ -188,7 +188,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -220,7 +219,6 @@
     <Content Include="Views\LoTrinh\Edit.cshtml" />
     <Content Include="Views\Shared\AdminLayout.cshtml" />
     <Content Include="Views\Shared\CustomerLayout.cshtml" />
-    <Content Include="Views\DatVe\KetQuaTimKiem.cshtml" />
     <Content Include="Views\DatVe\DienThongTinKhach.cshtml" />
     <Content Include="Views\DatVe\XacNhanTTKhach.cshtml" />
     <Content Include="Views\KhachHang\Index.cshtml" />
@@ -237,6 +235,7 @@
     <Content Include="Views\DatVe\XemTruocThanhToan.cshtml" />
     <Content Include="Views\TaiKhoan\Login.cshtml" />
     <Content Include="Views\DatVe\TimKiemChuyenBay.cshtml" />
+    <Content Include="Views\DatVe\KetQuaTimKiem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

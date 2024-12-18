@@ -53,17 +53,23 @@
             }
 
                 header .auth-buttons button {
-                    background-color: white;
-                    color: #007bff;
-                    border: none;
-                    padding: 5px 10px;
+                    background-color: #ffffff; /* Nền trắng */
+                    color: #333333; /* Màu chữ tối */
+                    padding: 5px 15px; /* Tăng padding cho nút */
                     cursor: pointer;
-                    border-radius: 4px;
+                    border-radius: 4px; /* Bo góc nhẹ */
+                    font-weight: bold; /* Chữ đậm */
+                    transition: background-color 0.3s ease, border-color 0.3s ease;
                 }
 
                     header .auth-buttons button:hover {
-                        background-color: #0056b3;
-                        color: white;
+                        background-color: #f0f0f0; /* Màu nền xám nhạt khi hover */
+                        border-color: #999999; /* Viền đậm hơn */
+                    }
+
+                    header .auth-buttons button a {
+                        text-decoration: none;
+                        color: inherit; /* Kế thừa màu chữ từ button */
                     }
 
         /* Sidebar Styles */
@@ -85,18 +91,12 @@
                     padding: 10px;
                     background-color: #007bff;
                     color: white;
-                    border-radius: 4px;
                     user-select: none;
                 }
-
-                    .sidebar .menu-item > h3:hover {
-                        background-color: #0056b3;
-                    }
 
             .sidebar .submenu {
                 position: relative;
                 background-color: #ffffff;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 padding: 10px;
                 display: none;
                 border-radius: 4px;
@@ -106,6 +106,7 @@
         .submenu li {
             list-style: none;
             margin: 5px 0;
+            margin-bottom: 10px;
         }
 
             .submenu li a {
@@ -143,52 +144,6 @@
                 color: #007bff;
             }
 
-        /* Carousel */
-        .carousel {
-            display: flex;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            height: 200px;
-            border-radius: 10px;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-            .carousel-item img {
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;
-                object-fit: cover;
-            }
-
-        .carousel-controls {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
-
-            .carousel-controls button {
-                background: transparent; /* Không có nền */
-                color: white; /* Màu chữ là trắng */
-                border: none; /* Bỏ viền */
-                padding: 10px; /* Padding cho các mũi tên */
-                font-size: 24px; /* Cỡ chữ của mũi tên */
-                cursor: pointer; /* Con trỏ chuột sẽ chuyển thành hình tay khi hover */
-                border-radius: 0; /* Không có góc bo */
-                transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền khi hover */
-            }
-
-                .carousel-controls button:hover {
-                    background-color: rgba(0, 0, 0, 0.8);
-                }
-
         /* Footer Styles */
         footer {
             text-align: center;
@@ -204,16 +159,24 @@
 <body>
     <!-- Header -->
     <header>
-        <a href="index.html" class="logo">Cái Tôi Thấp</a> <!-- Logo dẫn về trang chủ -->
+        <a href="#" class="logo">Cái Tôi Thấp</a>
         <nav>
-            <a href="#">Search Flights</a>
-            <a href="#">Promotions</a>
-            <a href="#">Contact</a>
+            <a href="TimKiemChuyenBay">Tìm kiếm chuyến bay</a>
+            <a href="#">Liên Hệ</a>
         </nav>
         <div class="auth-buttons">
-            <button>Login</button>
-            <button>Register</button>
-            <button>Logout</button>
+            @if (Session["UserName"] == null)
+            {
+                <!-- Chưa đăng nhập -->
+                <button><a href="@Url.Action("Login", "TaiKhoan")">Đăng nhập</a></button>
+                <button><a href="@Url.Action("Create", "TaiKhoan")">Đăng ký</a></button>
+            }
+            else
+            {
+                <!-- Đã đăng nhập -->
+                <span>Xin chào, @Session["UserName"]!</span>
+                <button><a href="@Url.Action("Logout", "TaiKhoan")">Đăng xuất</a></button>
+            }
         </div>
     </header>
 
@@ -231,81 +194,23 @@
             <img src="@Url.Content("~/Content/images/5.jpg")" alt="Ad 1">
         </div>
         <div class="ad-section">
-            <img src="@Url.Content("~/Content/images/2.png")" alt="Ad 1">
+            <img src="@Url.Content("~/Content/images/2.png")" alt="Ad 2">
         </div>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
         <div class="featured-ads">
-            <div class="carousel">
-                <div class="carousel-item">
-                    <img src="@Url.Content("~/Content/images/3.jpg")" alt="Ad 1">
-                </div>
-                <div class="carousel-item">
-                   <img src="@Url.Content("~/Content/images/1.png")" alt="Ad 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="@Url.Content("~/Content/images/4.jpg")" alt="Ad 3">
-                </div>
-                <div class="carousel-controls">
-                    <button id="prev">&lt;</button>
-                    <button id="next">&gt;</button>
-                </div>
-            </div>
+            <h1>Welcome to AirTicket!</h1>
         </div>
         @RenderBody()
     </main>
+
     <!-- Footer -->
     <footer>
         &copy; 2024 AirTicket. All rights reserved.
     </footer>
+
     @RenderSection("Scripts", required: false)
-    <!-- JavaScript -->
-    <script>
-        const items = document.querySelectorAll(".carousel-item");
-        const prev = document.getElementById("prev");
-        const next = document.getElementById("next");
-        let currentIndex = 0;
-
-        function updateCarousel() {
-            items.forEach((item, index) => {
-                item.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
-            });
-        }
-
-        prev.addEventListener("click", () => {
-            currentIndex = (currentIndex === 0) ? items.length - 1 : currentIndex - 1;
-            updateCarousel();
-        });
-
-        next.addEventListener("click", () => {
-            currentIndex = (currentIndex === items.length - 1) ? 0 : currentIndex + 1;
-            updateCarousel();
-        });
-
-        updateCarousel(); // Initialize carousel
-        const categoriesBtn = document.getElementById('categories-btn');
-        const categoriesMenu = document.getElementById('categories-menu');
-
-        // Bật tắt menu con khi nhấn vào nút Categories
-        categoriesBtn.addEventListener('click', () => {
-            if (categoriesMenu.style.display === 'block') {
-                categoriesMenu.style.display = 'none'; // Ẩn menu
-            } else {
-                categoriesMenu.style.display = 'block'; // Hiển thị menu
-            }
-        });
-
-        // Ẩn menu khi nhấn ra ngoài
-        document.addEventListener('click', (e) => {
-            // Kiểm tra nếu click không phải vào Categories hoặc menu con
-            if (!categoriesBtn.contains(e.target) && !categoriesMenu.contains(e.target)) {
-                categoriesMenu.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
-
-

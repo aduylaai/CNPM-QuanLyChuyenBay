@@ -1,6 +1,7 @@
 ﻿@using CNPM_QuanLyChuyenBay.Models
 @{
     ViewBag.Title = "DienThongTinKhach";
+    Layout = "~/Views/Shared/CusTomerLayout.cshtml";
 }
 @{ // Lấy thông tin chuyến bay từ TempData
     var thongTinChuyenBay = TempData["TTChuyenBay"] as KetQuaTimKiem;
