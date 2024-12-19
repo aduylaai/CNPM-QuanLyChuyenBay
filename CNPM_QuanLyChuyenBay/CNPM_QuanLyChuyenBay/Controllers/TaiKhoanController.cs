@@ -72,7 +72,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                     cmd.ExecuteNonQuery();
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "KhachHang");
             }
             catch(Exception ex)
             {

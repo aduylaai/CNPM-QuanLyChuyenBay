@@ -3,8 +3,65 @@
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-
 }
+
+<style>
+    h2 {
+        color: #d9534f; /* Màu đỏ để làm nổi bật tiêu đề */
+        font-weight: bold;
+    }
+
+    h3 {
+        margin-bottom: 20px;
+        color: #5bc0de; /* Màu xanh nhạt */
+    }
+
+    dl.dl-horizontal {
+        background-color: #f9f9f9; /* Màu nền nhạt */
+        border: 1px solid #ddd; /* Viền mỏng */
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    dt {
+        font-weight: bold;
+        color: #333;
+    }
+
+    dd {
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    .form-actions {
+        margin-top: 20px;
+    }
+
+    .btn {
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    .btn-default {
+        background-color: #d9534f; /* Màu đỏ cho nút Delete */
+        color: white;
+        border: none;
+    }
+
+        .btn-default:hover {
+            background-color: #c9302c;
+        }
+
+    .btn-link {
+        color: #5bc0de; /* Màu xanh nhạt cho nút Back */
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            color: #337ab7;
+            text-decoration: underline;
+        }
+</style>
 
 <h2>Xóa tài khoản</h2>
 
@@ -36,15 +93,15 @@
         <dd>
             @Html.DisplayFor(model => model.MatKhau)
         </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-link" })
         </div>
     }
 </div>

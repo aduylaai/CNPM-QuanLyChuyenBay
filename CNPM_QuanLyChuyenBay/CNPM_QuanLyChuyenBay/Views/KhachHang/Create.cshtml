@@ -1,20 +1,72 @@
 ﻿@model CNPM_QuanLyChuyenBay.Models.KhachHang
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tạo mới";
     Layout = "~/Views/Shared/CustomerLayout.cshtml";
 }
 
-<h2>Create</h2>
+<style>
+    .form-horizontal h4 {
+        color: #2c3e50;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
 
-@using (Html.BeginForm()) 
+    .form-group label {
+        color: #34495e;
+        font-weight: bold;
+    }
+
+    .form-group .form-control {
+        border-radius: 5px;
+        border: 1px solid #bdc3c7;
+        padding: 10px;
+    }
+
+        .form-group .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+    .btn-default {
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .btn-default:hover {
+            background-color: #2ecc71;
+        }
+
+    .text-danger {
+        color: red;
+        font-size: 13px;
+    }
+
+    hr {
+        border: 1px solid #ecf0f1;
+        margin-bottom: 30px;
+    }
+
+    .col-md-offset-2 {
+        margin-left: 17%;
+    }
+</style>
+
+<h2>Tạo mới khách hàng</h2>
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>KhachHang</h4>
+        <h4>Thông tin khách hàng</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -72,5 +124,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-default" })
 </div>
