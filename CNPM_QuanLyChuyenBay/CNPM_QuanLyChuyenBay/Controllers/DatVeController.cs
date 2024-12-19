@@ -392,7 +392,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                                 JOIN SanBay sbDen ON lt.MaSB_Den = sbDen.MaSanBay
                                 JOIN TrangThaiVe ttv ON v.MaTTV = ttv.MaTTV
                                 JOIN KhachHang kh ON pd.MaKhachHang = kh.MaKhachHang
-                                JOIN TaiKhoan tk ON kh.MaKhachHang = tk.MaKhachHang
+                                JOIN TaiKhoan tk ON kh.MaTaiKhoan = tk.MaTaiKhoan
                                 WHERE tk.TenTaiKhoan = @TenTaiKhoan;";
 
             DBConnect db = new DBConnect();

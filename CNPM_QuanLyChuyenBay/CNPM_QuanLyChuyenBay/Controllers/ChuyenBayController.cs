@@ -73,14 +73,11 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 // Xử lý lỗi
                 throw;
             }
-            finally
-            {
-                dBConn.closeConnect(); // Đảm bảo đóng kết nối
-            }
+           
         }
 
 
-      
+
         //        public ActionResult Details(int id)
         //{
         //    ChuyenBay cb = null;
@@ -119,37 +116,100 @@ namespace CNPM_QuanLyChuyenBay.Controllers
         // GET: ChuyenBay/Create
         public ActionResult Create()
         {
+            List<HangHangKhong> dsHangHangKhong = new List<HangHangKhong>();
+            SqlDataReader reader = dBConn.ThucThiReader(@"Select * from HangHangKhong");
+            while (reader.Read())
+            {
+                HangHangKhong hhk = new HangHangKhong();
+
+                hhk.MaHangHangKhong = int.Parse(reader["MaHangHangKhong"].ToString());
+                hhk.TenHangHangKhong = reader["TenHangHangKhong"].ToString();
+
+                dsHangHangKhong.Add(hhk);
+            }
+            ViewBag.DSHHK = dsHangHangKhong;
+            reader.Close();
+
+            List<LoTrinh> dsLoTrinh = new List<LoTrinh>();
+            reader = dBConn.ThucThiReader(@"
+                SELECT ltr.MaLoTrinh, 
+                       sb1.TenSanBay AS TenSanBayDi, 
+                       sb2.TenSanBay AS TenSanBayDen
+                FROM LoTrinh ltr
+                JOIN SanBay sb1 ON ltr.MaSB_Di = sb1.MaSanBay
+                JOIN SanBay sb2 ON ltr.MaSB_Den = sb2.MaSanBay; 
+            ");
+            while (reader.Read())
+            {
+                LoTrinh lt = new LoTrinh();
+                lt.MaLoTrinh = int.Parse(reader["MaLoTrinh"].ToString());
+                lt.TenSanBayDi = reader["TenSanBayDi"].ToString();
+                lt.TenSanBayDen = reader["TenSanBayDen"].ToString();
+                dsLoTrinh.Add(lt);
+            }
+            ViewBag.DSLT = dsLoTrinh;
+            reader.Close();
+
+            List<MayBay> dsMayBay = new List<MayBay>();
+            reader = dBConn.ThucThiReader(@"Select * from MayBay");
+            while (reader.Read())
+            {
+
+                MayBay mb = new MayBay();
+                mb.TenMayBay = reader["TenMayBay"].ToString();
+                dsMayBay.Add(mb);
+            }
+            ViewBag.DSMB = dsMayBay;
+
+
+
             return View();
+        }
+
+        private int LayMaMayBay(string tenMayBay)
+        {
+            int maMayBay = 0;
+            string query = @"select MaMayBay from MayBay where TenMayBay = '" + tenMayBay + "'";
+            maMayBay =  dBConn.GetInt(query);
+            return maMayBay;
         }
         // POST: ChuyenBay/Create
         [HttpPost]
-        public ActionResult Create(ChuyenBay cb)
+        public ActionResult Create(string maHangHangKhong, string maTrangThai, string maLoTrinh, string tenMayBay, double giaBay, DateTime ngayGioDi, DateTime ngayGioDen, int SLGhePhoThong, int SLGheThuongGia)
         {
             try
             {
-                dBConn.openConnect();
                 // Chèn chuyến bay mới vào cơ sở dữ liệu
-                SqlCommand cmd = new SqlCommand("INSERT INTO ChuyenBay (MaHangHangKhong, MaTrangThaiChuyenBay, MaLoTrinh, MaMayBay, GiaBay, SLGhePhoThong, SLGheThuongGia, NgayGioDi, NgayGioDen) " +"VALUES (@MaHangHangKhong, @MaTrangThaiChuyenBay, @MaLoTrinh, @MaMayBay, @GiaBay, @SLGhePhoThong, @SLGheThuongGia, @NgayGioDi, @NgayGioDen)", dBConn.conn);
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    string query = "INSERT INTO ChuyenBay (MaHangHangKhong, MaTrangThaiChuyenBay, MaLoTrinh, MaMayBay, GiaBay, SLGhePhoThong, SLGheThuongGia, NgayGioDi, NgayGioDen) " + "VALUES (@MaHangHangKhong, @MaTrangThaiChuyenBay, @MaLoTrinh, @MaMayBay, @GiaBay, @SLGhePhoThong, @SLGheThuongGia, @NgayGioDi, @NgayGioDen)";
+                  
+                    cmd.Connection = dBConn.conn;
+                    dBConn.openConnect();
 
-                cmd.Parameters.AddWithValue("@MaHangHangKhong", cb.MaHangHangKhong);
-                cmd.Parameters.AddWithValue("@MaTrangThaiChuyenBay", cb.MaTrangThaiChuyenBay);
-                cmd.Parameters.AddWithValue("@MaLoTrinh", cb.MaLoTrinh);
-                cmd.Parameters.AddWithValue("@MaMayBay", cb.MaMayBay);
-                cmd.Parameters.AddWithValue("@GiaBay", cb.GiaBay);
-                cmd.Parameters.AddWithValue("@SLGhePhoThong", cb.SLGhePhoThong ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@SLGheThuongGia", cb.SLGheThuongGia ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@NgayGioDi", cb.NgayGioDi ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@NgayGioDen", cb.NgayGioDen ?? (object)DBNull.Value);
+                    cmd.CommandText = query;
 
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@MaHangHangKhong", maHangHangKhong);
+                    cmd.Parameters.AddWithValue("@MaTrangThaiChuyenBay", 1);
+                    cmd.Parameters.AddWithValue("@MaLoTrinh", maLoTrinh);
+                    cmd.Parameters.AddWithValue("@MaMayBay", LayMaMayBay(tenMayBay));
+                    cmd.Parameters.AddWithValue("@GiaBay", giaBay);
+                    cmd.Parameters.AddWithValue("@SLGhePhoThong", SLGhePhoThong != 0 ? (object)SLGhePhoThong : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@SLGheThuongGia", SLGheThuongGia != 0 ? (object)SLGheThuongGia : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@NgayGioDi", ngayGioDi != DateTime.MinValue ? (object)ngayGioDi : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@NgayGioDen", ngayGioDen != DateTime.MinValue ? (object)ngayGioDen : DBNull.Value);
+
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
 
                 // Sau khi thêm, chuyển hướng về trang Index
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Nếu có lỗi, trả lại trang Create
-                return View(cb);
+                return View();
             }
         }
 

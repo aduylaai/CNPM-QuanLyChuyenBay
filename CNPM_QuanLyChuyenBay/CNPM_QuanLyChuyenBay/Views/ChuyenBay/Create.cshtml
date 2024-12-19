@@ -1,101 +1,133 @@
-﻿@model CNPM_QuanLyChuyenBay.Models.ChuyenBay
-
-@{
+﻿@{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ChuyenBay</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaHangHangKhong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaHangHangKhong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaHangHangKhong, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaTrangThaiChuyenBay, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaTrangThaiChuyenBay, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaTrangThaiChuyenBay, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaLoTrinh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaLoTrinh, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaLoTrinh, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaMayBay, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaMayBay, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaMayBay, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GiaBay, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GiaBay, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GiaBay, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SLGhePhoThong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SLGhePhoThong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SLGhePhoThong, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SLGheThuongGia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SLGheThuongGia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SLGheThuongGia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayGioDi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayGioDi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NgayGioDi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayGioDen, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayGioDen, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NgayGioDen, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="content col-md-5 bg-dark text-white p-4 d-flex flex-column justify-content-center">
+    <h2>Tạo Chuyến Bay Mới</h2>
 </div>
+<div class="col-md-12">
+    <div class="content bg-dark text-white p-4 shadow">
+        <hr />
+        <form action="/ChuyenBay/Create" method="post">
+            <div class="form-horizontal">
+                @Html.AntiForgeryToken()
+
+                <!-- Dropdown mã hãng hàng không -->
+                <div class="form-group row">
+                    <label for="maHangHangKhong" class="col-form-label col-md-3 text-right">Chọn hãng hàng không:</label>
+                    <div class="col-md-9">
+                        <select id="maHangHangKhong" name="maHangHangKhong" class="form-control">
+                            <option value="">Chọn hãng hàng không</option>
+                            @foreach (var item in ViewBag.DSHHK)
+                            {
+                                <option value="@item.MaHangHangKhong">@item.TenHangHangKhong</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <!-- Input mã lộ trình -->
+                <div class="form-group row">
+                    <label for="maLoTrinh" class="col-form-label col-md-3 text-right">Nhập mã lộ trình:</label>
+                    <div class="col-md-9">
+                        <input type="text" id="maLoTrinh" name="maLoTrinh" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Dropdown tên máy bay -->
+                <div class="form-group row">
+                    <label for="tenMayBay" class="col-form-label col-md-3 text-right">Chọn máy bay:</label>
+                    <div class="col-md-9">
+                        <select id="tenMayBay" name="tenMayBay" class="form-control">
+                            <option value="">Chọn máy bay</option>
+                            @foreach (var item in ViewBag.DSMB)
+                            {
+                                <option value="@item.TenMayBay">@item.TenMayBay</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Input giá vé -->
+                <div class="form-group row">
+                    <label for="giaBay" class="col-form-label col-md-3 text-right">Nhập giá vé:</label>
+                    <div class="col-md-9">
+                        <input type="text" id="giaBay" name="giaBay" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Input thời gian khởi hành và đến -->
+                <div class="form-group row">
+                    <label for="ngayGioDi" class="col-form-label col-md-3 text-right">Thời gian khởi hành:</label>
+                    <div class="col-md-9">
+                        <input type="datetime-local" id="ngayGioDi" name="ngayGioDi" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="ngayGioDen" class="col-form-label col-md-3 text-right">Thời gian đến (dự kiến):</label>
+                    <div class="col-md-9">
+                        <input type="datetime-local" id="ngayGioDen" name="ngayGioDen" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Input số lượng ghế phổ thông -->
+                <div class="form-group row">
+                    <label for="SLGhePhoThong" class="col-form-label col-md-3 text-right">Số lượng ghế phổ thông:</label>
+                    <div class="col-md-9">
+                        <input type="number" id="SLGhePhoThong" name="SLGhePhoThong" class="form-control" min="0" required>
+                    </div>
+                </div>
+
+                <!-- Input số lượng ghế thương gia -->
+                <div class="form-group row">
+                    <label for="SLGheThuongGia" class="col-form-label col-md-3 text-right">Số lượng ghế thương gia:</label>
+                    <div class="col-md-9">
+                        <input type="number" id="SLGheThuongGia" name="SLGheThuongGia" class="form-control" min="0" required>
+                    </div>
+                </div>
+
+
+                <hr />
+                <!-- Submit và quay lại -->
+                <div class="form-group row">
+                    <button type="submit" class="btn btn-warning px-4">Tạo chuyến bay mới</button>
+                </div>
+                <div class="form-group row">
+                    <div class="mt-3">
+                        @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-light" })
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="content col-md-5 bg-dark text-white p-4 d-flex flex-column justify-content-center">
+    <h2>Bảng Tra cứu Mã Lộ trình</h2>
+</div>
+<div class="col-md-12">
+    <div class="content bg-dark text-white p-4">
+        <table class="table">
+            <tr>
+                <th>Mã Lộ Trình</th>
+                <th>Tên Sân Bay Đi</th>
+                <th>Tên Sân Bay Đến</th>
+            </tr>
+
+            @foreach (var item in ViewBag.DSLT)
+            {
+                <tr>
+                    <td>@item.MaLoTrinh</td>
+                    <td>@item.TenSanBayDi</td>
+                    <td>@item.TenSanBayDen</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
