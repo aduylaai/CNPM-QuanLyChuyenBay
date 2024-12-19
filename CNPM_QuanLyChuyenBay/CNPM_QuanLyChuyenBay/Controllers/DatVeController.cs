@@ -13,7 +13,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
     public class DatVeController : Controller
     {
 
-        DBConnect dBConn = new DBConnect(@"DUNX\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
+        DBConnect dBConn = new DBConnect(@".", "CNPM_QuanLyBanVeMayBay");
 
 
         // GET: DatVe
@@ -254,20 +254,19 @@ namespace CNPM_QuanLyChuyenBay.Controllers
         public ActionResult KetQuaTimKiem()
         {
             List<KetQuaTimKiem> result = TempData["KetQuaTimKiem"] as List<KetQuaTimKiem>;
-            ViewBag.SLKhach = TempData["SLKhach"];
-
+            //ViewBag.SLKhach = TempData["SLKhach"];
             if (result == null)
             {
                 return RedirectToAction("TimKiemChuyenBay", "Datve");
             }
 
-            return View("KetQuaTimKiem", result);  
+            return View("KetQuaTimKiem", result);
         }
-        public ActionResult DienThongTinKhach(int id, int? SLKhach)
+        public ActionResult DienThongTinKhach(int id)
         {
             KetQuaTimKiem ThongTinChuyenBay = LayChuyenBay(id);
 
-            ViewBag.SLKhach = SLKhach;
+            ViewBag.SLKhach = TempData["SLKhach"];
             TempData["TTChuyenBay"] = ThongTinChuyenBay;
             //Load thong tin chuyen bay len
             //Dien thong tin khach hang theo so luong hanh khach
@@ -340,7 +339,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             string cauTruyVan = @"select Gia
                                   from GiaHangGhe ghg
                                   join HangHangKhong hhk on ghg.MaHHK = hhk.MaHangHangKhong
-                                  where MaHangGhe = "+maHG+" and hhk.TenHangHangKhong = N'"+thongTinChuyenBay.TenHangHangKhong+"'";
+                                  where MaHangGhe = " + maHG + " and hhk.TenHangHangKhong = N'" + thongTinChuyenBay.TenHangHangKhong + "'";
             SqlDataReader reader = dBConn.ThucThiReader(cauTruyVan);
             decimal GiaHangGhe = 0;
             while (reader.Read())
@@ -355,10 +354,14 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             hoaDon.TinhTongTien((float)thongTinChuyenBay.GiaBay, (float)GiaHangGhe);
 
             TempData["ThongTinChuyenBay"] = thongTinChuyenBay;
+
             TempData["DanhSachHanhKhach"] = hanhKhach;
+            TempData["pHoaDon"] = hoaDon;
             TempData["MaHG"] = maHG;
+
             TempData["HoaDon"] = hoaDon;
             ViewBag.SLKhach = hanhKhach.Count();
+            ViewBag.GiaGhe = GiaHangGhe;
 
             return View(hoaDon);
         }
@@ -408,9 +411,165 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                     lichSuDatVes.Add(lichSu);
                 }
             }
-            return View("LichSuDatVe",lichSuDatVes);
+            return View("LichSuDatVe", lichSuDatVes);
         }
 
+        [HttpPost]
+        public ActionResult ThanhToanVaDatVe(int idChuyenBay)
+        {
+            //TempData["DanhSachHanhKhach"] = hanhKhach;
+            //TempData["pHoaDon"] = hoaDon;
+            //TempData["MaHG"] = maHG;
+            try
+            {
+                //Lay thong tin tu cac tempdata cu
+                List<PHanhKhach> dsHanhKhach = TempData["DanhSachHanhKhach"] as List<PHanhKhach>;
+                KetQuaTimKiem thongTinChuyenBay = LayChuyenBay(idChuyenBay);
+                PHoaDon hoaDon = TempData["pHoaDon"] as PHoaDon;
+                int maHG = int.Parse( TempData["MaHG"].ToString());
+
+
+                //Tao phieu dat + ve
+                if (Session["UserName"] != null)
+                {
+                    //Lay MaKH
+                    string tenTK = Session["UserName"].ToString();
+                    int maTK = 0;
+                    SqlDataReader reader = dBConn.ThucThiReader("Select MaTaiKhoan From TaiKhoan where TenTaiKhoan = N'" + tenTK+"'");
+                    while (reader.Read())
+                    {
+                        maTK = int.Parse(reader["MaTaiKhoan"].ToString());
+                    }
+                    reader.Close();
+
+                    //Tao ma booking
+                    string maBooking = "";
+                    do
+                    {
+                        maBooking = taoMaBooking();
+                    } while (dBConn.checkExist("PhieuDat", "MaBooking", maBooking));
+
+                    int maPhieuDat = 0;
+                    dBConn.openConnect();
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        string query = @"
+                                        INSERT INTO PhieuDat (MaKhachHang, NgayDat, MaBooking)
+                                        OUTPUT INSERTED.MaPhieuDat
+                                        VALUES (@MaKhachHang, @NgayDat, @MaBooking);";
+
+                        cmd.CommandText = query;
+                        cmd.Connection = dBConn.conn;
+
+                        // Thêm các tham số cho truy vấn
+                        cmd.Parameters.AddWithValue("@MaKhachHang", maTK);
+                        cmd.Parameters.AddWithValue("@NgayDat", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@MaBooking", maBooking);
+
+                        // Sử dụng ExecuteScalar để nhận giá trị MaPhieuDat được trả về
+                        maPhieuDat = (int)cmd.ExecuteScalar();
+                    }
+
+
+                    //Tao ve
+                    // Tao 1 list de luu tru dsMaKH
+                    List<int> dsMaKH = new List<int>();
+                    for (int i = 0; i < dsHanhKhach.Count; i++)
+                    {
+                        //Neu khach da ton tai trong he thong
+                        if (dBConn.checkExist("HanhKhach", "CCCD_Passport", dsHanhKhach[i].CCCD_Passport))
+                        {
+                            string cauTruyVan = "select MaHanhKhach From HanhKhach where CCCD_Passport = N'" + dsHanhKhach[i].CCCD_Passport + "'";
+                            int MaHK = dBConn.GetInt(cauTruyVan);
+                            dsMaKH.Add(MaHK);
+                        }
+                        else
+                        {
+                            int maHK = 0;
+                            string query = @"
+                                            INSERT INTO HanhKhach (HoTen, GioiTinh, QuocTich, NgaySinh, CCCD_Passport, MaKhachHang)
+                                            OUTPUT inserted.MaHanhKhach
+                                            VALUES (@HoTen, @GioiTinh, @QuocTich, @NgaySinh, @CCCD_Passport, @MaKhachHang);";
+
+                            using (SqlCommand command = new SqlCommand(query, dBConn.conn))
+                            {
+                                command.Parameters.AddWithValue("@HoTen", dsHanhKhach[i].HoTen);
+                                command.Parameters.AddWithValue("@GioiTinh", dsHanhKhach[i].GioiTinh);
+                                command.Parameters.AddWithValue("@QuocTich", dsHanhKhach[i].QuocTich);
+                                command.Parameters.AddWithValue("@NgaySinh", dsHanhKhach[i].NgaySinh);
+                                command.Parameters.AddWithValue("@CCCD_Passport", dsHanhKhach[i].CCCD_Passport);
+                                command.Parameters.AddWithValue("@MaKhachHang", maTK);
+
+                                dBConn.openConnect();
+
+                                object result = command.ExecuteScalar();
+                                if (result != null)
+                                {
+                                    maHK = Convert.ToInt32(result);
+                                    dsMaKH.Add(maHK);
+                                }
+                            }
+                        }
+
+                    }
+                    // Tao ve
+                    for (int i = 0; i < dsMaKH.Count; i++)
+                    {
+                        dBConn.openConnect();
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            cmd.Connection = dBConn.conn;
+
+                            string query = @"Insert into Ve (MaHanhKhach, MaTTV, MaPhieuDat, MaHangGhe, MaChuyenBay) 
+                                             VALUES(@MaHK, 2, @MaPD, @MaHG, @MaCB)";
+
+                            cmd.CommandText = query;
+                            cmd.Parameters.AddWithValue("@MaHK", dsMaKH[i]);
+                            cmd.Parameters.AddWithValue("@MaPD", maPhieuDat);
+                            cmd.Parameters.AddWithValue("@MaCB", thongTinChuyenBay.MaChuyenBay);
+                            cmd.Parameters.AddWithValue("@MaHG", maHG);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+
+                    //Tao hoa don
+                    dBConn.openConnect();
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        string query = @"insert into HoaDon (MaPhieuDat,TongTien)
+                                         Values(@MaPD,@TongTien)";
+                        cmd.Connection = dBConn.conn;
+                        cmd.CommandText = query;
+
+                        cmd.Parameters.AddWithValue("@MaPD", maPhieuDat);
+                        cmd.Parameters.AddWithValue("@TongTien", hoaDon.TongTien);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return View("DatVeHoanTat");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        private string taoMaBooking()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            char[] code = new char[6];
+
+            for (int i = 0; i < code.Length; i++)
+            {
+                code[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new string(code);
+        }
 
     }
 }

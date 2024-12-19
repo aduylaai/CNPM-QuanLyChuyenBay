@@ -11,7 +11,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 {
     public class TaiKhoanController : Controller
     {
-        DBConnect dbConn = new DBConnect(@"DUNX\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
+        DBConnect dbConn = new DBConnect(@".", "CNPM_QuanLyBanVeMayBay");
         public TaiKhoanController()
         {
             dbConn.openConnect();

@@ -176,5 +176,16 @@ namespace CNPM_QuanLyChuyenBay.Helpers
             }
         }
 
+
+        public int GetInt(string strSQL)
+        {
+            openConnect();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = strSQL;
+            int output = (int)cmd.ExecuteScalar();
+            closeConnect();
+            return output;
+        }
     }
 }

@@ -20,9 +20,17 @@
 </div>
 
 <h2>Thông tin hóa đơn</h2>
-<p>Số lượng vé: @ViewBag.SLKhach</p>
+<p>Số lượng vé: @ViewBag.SLKhach x (@thongTinChuyenBay.GiaBay + @ViewBag.GiaGhe)</p>
 <p>Tổng tiền: @hoaDon.TongTien</p>
 <p>Ngày Đặt: @hoaDon.NgayDat.ToString()</p>
+
+@using (Html.BeginForm("ThanhToanVaDatVe", "DatVe", FormMethod.Post))
+{
+    @Html.Hidden("idChuyenBay", thongTinChuyenBay.MaChuyenBay)
+    @*@Html.Hidden("dsHanhKhach", JsonConvert.SerializeObject(danhSachHanhKhach))*@
+    <button type="submit">Thanh toán và Đặt vé!</button>
+}
+
 
 <!-- Bộ đếm ngược -->
 <h3>Thời gian còn lại: <span id="countdown">03:00</span></h3>
@@ -35,7 +43,7 @@
 <script type="text/javascript">
     var countdownElement = document.getElementById('countdown');
     var timeoutMessage = document.getElementById('timeoutMessage');
-    var totalSeconds = 10; // 3 minutes = 180 seconds
+    var totalSeconds = 180;
 
     function updateCountdown() {
         var minutes = Math.floor(totalSeconds / 60);

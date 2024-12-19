@@ -157,7 +157,7 @@
             <td>
                 @if (Session["UserName"] != null)
                 {
-                    @Html.ActionLink("Đặt vé ngay!", "DienThongTinKhach", new { id = item.MaChuyenBay, SLKhach = ViewBag.SLKhach })
+                    @Html.ActionLink("Đặt vé ngay!", "DienThongTinKhach", new { id = item.MaChuyenBay })
                 }
                 else
                 {
