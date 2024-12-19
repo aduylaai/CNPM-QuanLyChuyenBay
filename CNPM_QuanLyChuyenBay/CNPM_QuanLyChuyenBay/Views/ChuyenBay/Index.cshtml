@@ -2,80 +2,117 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<!-- Embedded Styles -->
+<style>
+    /* General Page Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Table Styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table td a {
+            text-decoration: none;
+            padding: 6px 12px;
+            color: #007bff;
+            border-radius: 4px;
+        }
+
+            .table td a:hover {
+                background-color: #e9ecef;
+            }
+
+    /* Button Styles */
+    .btn-create {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+        .btn-create:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<!-- Page Content -->
+<h2>Chuyến Bay</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "ChuyenBay")" class="btn-create">Tạo Mới</a>
 </p>
+
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaChuyenBay)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenHangHangKhong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenSB_Di)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenSB_Den)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SLGhePhoThong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SLGheThuongGia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayGioDi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayGioDen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GiaBay)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaChuyenBay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenHangHangKhong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenSB_Di)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenSB_Den)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SLGhePhoThong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SLGheThuongGia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayGioDi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayGioDen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GiaBay)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaChuyenBay }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaChuyenBay }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaChuyenBay })
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MaChuyenBay)</th>
+            <th>@Html.DisplayNameFor(model => model.TenHangHangKhong)</th>
+            <th>@Html.DisplayNameFor(model => model.TenSB_Di)</th>
+            <th>@Html.DisplayNameFor(model => model.TenSB_Den)</th>
+            <th>@Html.DisplayNameFor(model => model.SLGhePhoThong)</th>
+            <th>@Html.DisplayNameFor(model => model.SLGheThuongGia)</th>
+            <th>@Html.DisplayNameFor(model => model.NgayGioDi)</th>
+            <th>@Html.DisplayNameFor(model => model.NgayGioDen)</th>
+            <th>@Html.DisplayNameFor(model => model.GiaBay)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaChuyenBay)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenHangHangKhong)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenSB_Di)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenSB_Den)</td>
+                <td>@Html.DisplayFor(modelItem => item.SLGhePhoThong)</td>
+                <td>@Html.DisplayFor(modelItem => item.SLGheThuongGia)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayGioDi)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayGioDen)</td>
+                <td>@Html.DisplayFor(modelItem => item.GiaBay)</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.MaChuyenBay }) |
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

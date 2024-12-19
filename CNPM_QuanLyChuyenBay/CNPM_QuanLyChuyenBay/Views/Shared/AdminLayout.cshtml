@@ -17,7 +17,7 @@
     <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
 
 
-    <title>Simple Admin Dashboard - Bootstrap</title>
+    <title>Trang bán vé máy bay</title>
 
     <link rel="canonical" href="https://codepen.io/BhupinderS/pen/wvgNaKE">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,25 +65,13 @@
             </button>
             <div class="collapse" id="sale-collapse" data-parent="#sidebar">
                 <div class="list-group">
-                    <a href="@Url.Action("Index","MayBay")" class="list-group-item list-group-item-action border-0 pl-5">Quản lý Chuyến bay</a>
+                    <a href="@Url.Action("Index","ChuyenBay")" class="list-group-item list-group-item-action border-0 pl-5">Quản lý Chuyến bay</a>
                     <a href="@Url.Action("Index","SanBay")" class="list-group-item list-group-item-action border-0 pl-5">Quản lý Sân bay</a>
                     <a href="@Url.Action("Index","HangHangKhong")" class="list-group-item list-group-item-action border-0 pl-5">Quản lý Hãng hàng không</a>
                 </div>
             </div>
 
-            <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#purchase-collapse">
-                <div>
-                    <span class="bi bi-cart-plus"></span>
-                    <span class="ml-2">Purchase</span>
-                </div>
-                <span class="bi bi-chevron-down small"></span>
-            </button>
-            <div class="collapse" id="purchase-collapse" data-parent="#sidebar">
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Sellers</a>
-                    <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Purchases</a>
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -100,7 +88,7 @@
                     <span class="bi bi-chevron-down ml-1 mb-2 small"></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown">
-                    <a class="dropdown-item" href="@Url.Action("LogOut","TaiKhoan")">Logout</a>
+                    <a class="dropdown-item" href="@Url.Action("LogOut","TaiKhoan")">Đăng xuất</a>
                     <a class="dropdown-item" href="#">Settings</a>
                 </div>
             </div>
