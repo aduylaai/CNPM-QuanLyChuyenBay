@@ -11,10 +11,10 @@ namespace CNPM_QuanLyChuyenBay.Models
         public float TongTien { get; set; }
         public DateTime NgayDat { get; set; }
 
-        public void TinhTongTien(float GiaBay, float GiaHangGhe)
+        public void TinhTongTien(float GiaBay, float GiaHangGhe, int SoLuongKhach)
         {
             TongTien = 0;
-            TongTien += GiaBay + GiaHangGhe;
+            TongTien += (GiaBay + GiaHangGhe) * SoLuongKhach;
         }
 
     }
