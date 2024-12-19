@@ -13,7 +13,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
     public class DatVeController : Controller
     {
 
-        DBConnect dBConn = new DBConnect(@"DUNX\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
+        DBConnect dBConn = new DBConnect(@".", "CNPM_QuanLyBanVeMayBay");
 
 
         // GET: DatVe
