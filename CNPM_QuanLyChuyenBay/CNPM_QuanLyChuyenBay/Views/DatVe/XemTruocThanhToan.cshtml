@@ -9,8 +9,75 @@
     var hoaDon = TempData["HoaDon"] as PHoaDon;
 }
 
+<!-- Embedded Styles -->
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #0056b3;
+    }
+
+    h3 {
+        color: #d9534f;
+    }
+
+    .content-box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+        .content-box p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .content-box strong {
+            font-weight: bold;
+            color: #333;
+        }
+
+    .btn-submit {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+
+    #timeoutMessage {
+        color: red;
+        font-size: 1.2rem;
+        margin-top: 20px;
+    }
+
+    #countdown {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #d9534f;
+    }
+</style>
+
+<!-- Page Content -->
 <h2>Thông Tin Chuyến Bay</h2>
-<div>
+<div class="content-box">
     <p><strong>Chuyến Bay:</strong> @thongTinChuyenBay.MaChuyenBay</p>
     <p><strong>Hạng Hàng Không:</strong> @thongTinChuyenBay.TenHangHangKhong</p>
     <p><strong>Sân Bay Đi:</strong> @thongTinChuyenBay.TenSB_Di</p>
@@ -20,23 +87,23 @@
 </div>
 
 <h2>Thông tin hóa đơn</h2>
-<p>Số lượng vé: @ViewBag.SLKhach x (@thongTinChuyenBay.GiaBay + @ViewBag.GiaGhe)</p>
-<p>Tổng tiền: @hoaDon.TongTien</p>
-<p>Ngày Đặt: @hoaDon.NgayDat.ToString()</p>
+<div class="content-box">
+    <p><strong>Số lượng vé:</strong> @ViewBag.SLKhach x (@thongTinChuyenBay.GiaBay + @ViewBag.GiaGhe)</p>
+    <p><strong>Tổng tiền:</strong> @String.Format("{0:N0}", hoaDon.TongTien) VND</p>
+    <p><strong>Ngày Đặt:</strong> @hoaDon.NgayDat.ToString("dd/MM/yyyy HH:mm")</p>
+</div>
 
 @using (Html.BeginForm("ThanhToanVaDatVe", "DatVe", FormMethod.Post))
 {
     @Html.Hidden("idChuyenBay", thongTinChuyenBay.MaChuyenBay)
-    @*@Html.Hidden("dsHanhKhach", JsonConvert.SerializeObject(danhSachHanhKhach))*@
-    <button type="submit">Thanh toán và Đặt vé!</button>
+    <button type="submit" class="btn-submit">Thanh toán và Đặt vé!</button>
 }
-
 
 <!-- Bộ đếm ngược -->
 <h3>Thời gian còn lại: <span id="countdown">03:00</span></h3>
 
 <!-- Thông báo hết thời gian -->
-<div id="timeoutMessage" style="color: red; display: none;">
+<div id="timeoutMessage" style="display: none;">
     <p>Đã hết thời gian thanh toán chuyến bay. Vui lòng đặt lại.</p>
 </div>
 

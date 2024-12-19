@@ -1,7 +1,84 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "DatVeHoanTat";
 }
 
-<h2>DatVeHoanTat</h2>
+<h2>Đặt Vé Hoàn Tất! Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi</h2>
 
+<!-- Content Section -->
+<div class="content-box">
+    <p><strong>Chúc mừng bạn đã đặt vé thành công!</strong></p>
+    <p>Thông tin của bạn đã được lưu trữ. Bạn có thể thực hiện các thao tác sau:</p>
+
+    <!-- Action Buttons -->
+    <div class="button-container">
+        <a href="@Url.Action("TimKiemChuyenBay", "DatVe")" class="btn-main">Tìm kiếm chuyến bay</a>
+        <a href="@Url.Action("LichSuDatVe", "DatVe")" class="btn-secondary">Xem Vé Đã Đặt</a>
+    </div>
+</div>
+
+<!-- CSS for Styling -->
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #0056b3;
+        text-align: center;
+    }
+
+    .content-box {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .content-box p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .btn-main, .btn-secondary {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .btn-main {
+        background-color: #28a745;
+    }
+
+        .btn-main:hover {
+            background-color: #218838;
+        }
+
+    .btn-secondary {
+        background-color: #007bff;
+    }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+        }
+</style>

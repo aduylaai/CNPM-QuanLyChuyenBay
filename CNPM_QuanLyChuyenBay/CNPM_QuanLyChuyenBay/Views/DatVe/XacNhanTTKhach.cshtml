@@ -8,11 +8,10 @@
 
 @{
     var thongTinChuyenBay = TempData["TTChuyenBay"] as KetQuaTimKiem;
-    //var danhSachHanhKhach = TempData["DanhSachHanhKhach"] as List<PHanhKhach>;
 }
 
 <h2>Thông Tin Chuyến Bay</h2>
-<div>
+<div class="flight-info">
     <p><strong>Chuyến Bay:</strong> @thongTinChuyenBay.MaChuyenBay</p>
     <p><strong>Hạng Hàng Không:</strong> @thongTinChuyenBay.TenHangHangKhong</p>
     <p><strong>Sân Bay Đi:</strong> @thongTinChuyenBay.TenSB_Di</p>
@@ -21,70 +20,119 @@
     <p><strong>Ngày Giờ Đến:</strong> @thongTinChuyenBay.NgayGioDen</p>
 </div>
 
-<h2>XacNhanTTKhach</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaHanhKhach)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QuocTich)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CCCD_Passport)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<h2>Thông Tin Hành Khách</h2>
+<table class="table table-bordered">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaHanhKhach)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GioiTinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuocTich)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CCCD_Passport)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            <th>@Html.DisplayNameFor(model => model.MaHanhKhach)</th>
+            <th>@Html.DisplayNameFor(model => model.HoTen)</th>
+            <th>@Html.DisplayNameFor(model => model.GioiTinh)</th>
+            <th>@Html.DisplayNameFor(model => model.QuocTich)</th>
+            <th>@Html.DisplayNameFor(model => model.NgaySinh)</th>
+            <th>@Html.DisplayNameFor(model => model.CCCD_Passport)</th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaHanhKhach)</td>
+                <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                <td>@Html.DisplayFor(modelItem => item.GioiTinh)</td>
+                <td>@Html.DisplayFor(modelItem => item.QuocTich)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
+                <td>@Html.DisplayFor(modelItem => item.CCCD_Passport)</td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 @using (Html.BeginForm("XemTruocThanhToan", "DatVe", FormMethod.Post))
 {
     @Html.Hidden("idChuyenBay", thongTinChuyenBay.MaChuyenBay)
-    @*@Html.Hidden("dsHanhKhach", JsonConvert.SerializeObject(danhSachHanhKhach))*@ 
-    <button type="submit">Xem thanh toán</button>
+    <button type="submit" class="btn btn-success">Xem thanh toán</button>
 }
 
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 20px;
+    }
 
+    h2 {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .flight-info {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+        .flight-info p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+</style>
