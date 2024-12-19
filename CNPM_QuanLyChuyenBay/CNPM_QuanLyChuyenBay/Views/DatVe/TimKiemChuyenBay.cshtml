@@ -57,7 +57,6 @@
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Lời chào ở đầu -->
                     @if (Session["UserName"] != null)
                     {
                         <li class="navbar-text" style="color: white;">Chào, @Session["UserName"]!</li>
@@ -88,7 +87,7 @@
                     </div>
                     <div class="col-md-7 col-md-offset-1">
                         <div class="booking-form">
-                            @using (Html.BeginForm("TimKiemChuyenBay", "DatVe", FormMethod.Post))
+                            @using (Html.BeginForm("TimKiemChuyenBay", "DatVe", FormMethod.Post, new { id = "bookingForm", onsubmit = "return validateForm()" }))
                             {
                                 <div class="row">
                                     <!-- Sân bay đi -->
@@ -128,14 +127,6 @@
                                             <input id="NgayDi" name="NgayGioDi" type="date" class="form-control" required />
                                         </div>
                                     </div>
-
-                                    <!-- Ngày về -->
-                                    @*<div class="col-md-6">
-                                        <div class="form-group">
-                                            <span class="form-label">Returning</span>
-                                            <input id="NgayVe" name="NgayGioVe" type="date" class="form-control" />
-                                        </div>
-                                    </div>*@
                                 </div>
 
                                 <!-- Số lượng khách -->
@@ -231,13 +222,18 @@
             }
         }
 
-        // Hàm đăng xuất
-        function logout() {
-            // Xóa Session UserName
-            window.location.href = '/TaiKhoan/Logout'; // Gọi API logout trên server
+        // Hàm kiểm tra form trước khi submit
+        function validateForm() {
+            const hangGhe = document.getElementById("HangGhe").value;
+
+            if (!hangGhe) {
+                alert("Vui lòng chọn hạng ghế!");
+                return false; // Ngăn không cho gửi biểu mẫu
+            }
+
+            return true; // Cho phép gửi biểu mẫu nếu không có lỗi
         }
     </script>
-
 </body>
 
 </html>

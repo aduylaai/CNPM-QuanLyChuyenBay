@@ -351,7 +351,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             //Tao hoa don
             PHoaDon hoaDon = new PHoaDon();
             hoaDon.NgayDat = DateTime.Now;
-            hoaDon.TinhTongTien((float)thongTinChuyenBay.GiaBay, (float)GiaHangGhe);
+            hoaDon.TinhTongTien((float)thongTinChuyenBay.GiaBay, (float)GiaHangGhe, hanhKhach.Count);
 
             TempData["ThongTinChuyenBay"] = thongTinChuyenBay;
 

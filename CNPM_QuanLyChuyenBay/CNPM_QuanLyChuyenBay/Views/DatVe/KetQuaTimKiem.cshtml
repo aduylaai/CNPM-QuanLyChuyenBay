@@ -157,6 +157,11 @@
             <td>
                 @if (Session["UserName"] != null)
                 {
+                    if (item.SLGhePhoThong == 0 && item.SLGheThuongGia == 0)
+                    {
+                        <span style="color: red;">Hết vé</span>
+
+                    }
                     @Html.ActionLink("Đặt vé ngay!", "DienThongTinKhach", new { id = item.MaChuyenBay })
                 }
                 else
