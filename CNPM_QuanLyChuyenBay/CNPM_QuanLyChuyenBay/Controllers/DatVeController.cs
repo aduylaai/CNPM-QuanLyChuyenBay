@@ -13,7 +13,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
     public class DatVeController : Controller
     {
 
-        DBConnect dBConn = new DBConnect(@".", "CNPM_QuanLyBanVeMayBay");
+        DBConnect dBConn = new DBConnect(@"DUNX\SQLEXPRESS01", "CNPM_QuanLyBanVeMayBay");
 
 
         // GET: DatVe
@@ -375,18 +375,25 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             string userName = Session["UserName"].ToString();
             List<LichSuDatVe> lichSuDatVes = new List<LichSuDatVe>();
 
-            string sqlQuery = @"
-                SELECT pd.MaPhieuDat, pd.NgayDat, cb.MaChuyenBay, cb.NgayGioDi, 
-                       mb.TenMayBay, sbDi.TenSanBay AS SanBayDi, sbDen.TenSanBay AS SanBayDen
-                FROM PhieuDat pd
-                JOIN Ve v ON pd.MaPhieuDat = v.MaPhieuDat
-                JOIN ChuyenBay cb ON v.MaChuyenBay = cb.MaChuyenBay
-                JOIN MayBay mb ON cb.MaMayBay = mb.MaMayBay
-                JOIN SanBay sbDi ON cb.MaSanBayDi = sbDi.MaSanBay
-                JOIN SanBay sbDen ON cb.MaSanBayDen = sbDen.MaSanBay
-                JOIN KhachHang kh ON pd.MaKhachHang = kh.MaKhachHang
-                JOIN TaiKhoan tk ON kh.MaTaiKhoan = tk.MaTaiKhoan
-                WHERE tk.TenTaiKhoan = @TenTaiKhoan";
+            string sqlQuery = @"SELECT pd.MaPhieuDat, 
+                                        pd.NgayDat, 
+                                        cb.MaChuyenBay, 
+                                        cb.NgayGioDi, 
+                                        mb.TenMayBay, 
+                                        sbDi.TenSanBay AS SanBayDi, 
+                                        sbDen.TenSanBay AS SanBayDen,
+                                        ttv.TenTTV AS TrangThaiVe
+                                FROM PhieuDat pd
+                                JOIN Ve v ON pd.MaPhieuDat = v.MaPhieuDat
+                                JOIN ChuyenBay cb ON v.MaChuyenBay = cb.MaChuyenBay
+                                JOIN MayBay mb ON cb.MaMayBay = mb.MaMayBay
+                                JOIN LoTrinh lt ON cb.MaLoTrinh = lt.MaLoTrinh
+                                JOIN SanBay sbDi ON lt.MaSB_Di = sbDi.MaSanBay
+                                JOIN SanBay sbDen ON lt.MaSB_Den = sbDen.MaSanBay
+                                JOIN TrangThaiVe ttv ON v.MaTTV = ttv.MaTTV
+                                JOIN KhachHang kh ON pd.MaKhachHang = kh.MaKhachHang
+                                JOIN TaiKhoan tk ON kh.MaKhachHang = tk.MaKhachHang
+                                WHERE tk.TenTaiKhoan = @TenTaiKhoan;";
 
             DBConnect db = new DBConnect();
             SqlParameter[] sqlParameters = new SqlParameter[]
