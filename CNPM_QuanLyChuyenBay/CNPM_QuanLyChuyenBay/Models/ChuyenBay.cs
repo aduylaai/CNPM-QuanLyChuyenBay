@@ -12,8 +12,11 @@ namespace CNPM_QuanLyChuyenBay.Models
         public int MaTrangThaiChuyenBay { get; set; }
         public int MaLoTrinh { get; set; }
         public int MaMayBay { get; set; }
-        public int GiaBay { get; set; }
-        public int SLGhePhoThong { get; set; }
-        public int SLGheThuongGia { get; set; }
+        public decimal GiaBay { get; set; }
+        public int? SLGhePhoThong { get; set; }
+        public int? SLGheThuongGia { get; set; }
+        public DateTime? NgayGioDi { get; set; }
+        public DateTime? NgayGioDen { get; set; }
+
     }
 }

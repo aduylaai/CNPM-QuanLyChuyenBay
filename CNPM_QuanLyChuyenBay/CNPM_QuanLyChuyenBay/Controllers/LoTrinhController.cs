@@ -32,7 +32,6 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             }
             return View(dsLoTrinh);
         }
-
         // GET: LoTrinh/Details/5
         public ActionResult Details(int id)
         {
