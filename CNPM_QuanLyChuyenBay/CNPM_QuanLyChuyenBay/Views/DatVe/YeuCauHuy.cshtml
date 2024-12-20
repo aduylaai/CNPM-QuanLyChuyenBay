@@ -1,8 +1,69 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "YeuCauHuy";
     Layout = "~/Views/Shared/CustomerLayout.cshtml";
 }
 
-<h2>YeuCauHuyThanhCong</h2>
+<h2 class="page-title">Yêu Cầu Hủy Thành Công</h2>
 
+<!-- Success message alert -->
+<div class="alert alert-success">
+    <strong>Thành công!</strong> Yêu cầu hủy của bạn đã được xử lý thành công.
+</div>
+
+<!-- Button to go back to the previous page or another relevant page -->
+<div>
+    <a href="@Url.Action("TimKiemChuyenBay", "DatVe")" class="btn btn-primary">Trở về trang chủ</a>
+</div>
+
+<!-- CSS for styling -->
+<style>
+    /* General styling */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+
+    .page-title {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        font-size: 16px;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+</style>

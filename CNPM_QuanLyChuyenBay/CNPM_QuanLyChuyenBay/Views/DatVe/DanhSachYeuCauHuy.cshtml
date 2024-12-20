@@ -5,56 +5,101 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h2>DanhSachYeuCauHuy</h2>
+<h2>Danh Sách Yêu Cầu Hủy</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaVe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenHanhKhach)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenTTV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaPhieuDat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HangGhe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaChuyenBay)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaVe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenHanhKhach)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenTTV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaPhieuDat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HangGhe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaChuyenBay)
-        </td>
-        <td>
-            @Html.ActionLink("Duyệt", "DuyetHuy", new { id = item.MaVe })
-         
-        </td>
-    </tr>
-}
-
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MaVe)</th>
+            <th>@Html.DisplayNameFor(model => model.TenHanhKhach)</th>
+            <th>@Html.DisplayNameFor(model => model.TenTTV)</th>
+            <th>@Html.DisplayNameFor(model => model.MaPhieuDat)</th>
+            <th>@Html.DisplayNameFor(model => model.HangGhe)</th>
+            <th>@Html.DisplayNameFor(model => model.MaChuyenBay)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaVe)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenHanhKhach)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenTTV)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaPhieuDat)</td>
+                <td>@Html.DisplayFor(modelItem => item.HangGhe)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaChuyenBay)</td>
+                <td>
+                    @Html.ActionLink("Duyệt", "DuyetHuy", new { id = item.MaVe }, new { @class = "btn btn-success btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<style>
+    /* General styling */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    table tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+
+    table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Button styling */
+    .btn {
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .btn-sm {
+        padding: 3px 6px;
+        font-size: 12px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+</style>
