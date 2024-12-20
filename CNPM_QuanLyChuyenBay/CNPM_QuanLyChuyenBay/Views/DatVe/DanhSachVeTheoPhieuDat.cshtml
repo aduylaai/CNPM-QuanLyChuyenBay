@@ -68,7 +68,7 @@
                 @Html.DisplayFor(modelItem => item.MaChuyenBay)
             </td>
             <td>
-                @Html.ActionLink("YeuCauHuy", "YeuCauHuy", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("YeuCauHuy", "YeuCauHuy", new { id= item.MaVe }) |
                 @Html.ActionLink("Details", "ChiTietVe", new { id = item.MaVe, idChuyenBay = item.MaChuyenBay }) |
             </td>
         </tr>
