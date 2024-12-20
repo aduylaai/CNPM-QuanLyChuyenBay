@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CNPM_QuanLyChuyenBay.Models.Ve>
+
+@{
+    ViewBag.Title = "DanhSachYeuCauHuy";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>DanhSachYeuCauHuy</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaVe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHanhKhach)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenTTV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaPhieuDat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HangGhe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaChuyenBay)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaVe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenHanhKhach)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenTTV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaPhieuDat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HangGhe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaChuyenBay)
+        </td>
+        <td>
+            @Html.ActionLink("Duyệt", "DuyetHuy", new { id = item.MaVe })
+         
+        </td>
+    </tr>
+}
+
+</table>

@@ -654,5 +654,63 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
             return View(ve);
         }
+
+        public ActionResult YeuCauHuy(int id)
+        {
+            try
+            {
+                string cauTruyVan = "Update Ve set MaTTV = 5 where MaVe = " + id;
+                dBConn.updateToDataBase(cauTruyVan);
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public ActionResult DanhSachYeuCauHuy()
+        {
+            string cauTruyVan = @"select * from Ve where MaTTV = 5";
+            List<Ve> dsVeYeuCauHuy = new List<Ve>();
+            using (SqlDataReader reader1 = dBConn.ThucThiReader(cauTruyVan))
+            {
+                while (reader1.Read())
+                {
+                    Ve tmp = new Ve();
+
+                    tmp.MaChuyenBay = int.Parse(reader1["MaChuyenBay"].ToString());
+                    tmp.HangGhe = reader1["TenHangGhe"].ToString();
+                    tmp.MaVe = int.Parse(reader1["MaVe"].ToString());
+                    tmp.TenTTV = reader1["TenTTV"].ToString();
+                    tmp.TenHanhKhach = reader1["HoTen"].ToString();
+                    tmp.MaChuyenBay = int.Parse(reader1["MaPhieuDat"].ToString());
+                    tmp.MaPhieuDat = int.Parse(reader1["MaPhieuDat"].ToString());
+
+                    dsVeYeuCauHuy.Add(tmp);
+                }
+                reader1.Close();
+            }
+            return View(dsVeYeuCauHuy);
+        }
+
+        public ActionResult DuyetHuy(int id)
+        {
+            try
+            {
+                string query = @"update Ve set MaTTV = 4 where MaVe = " + id;
+                dBConn.updateToDataBase(query);
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

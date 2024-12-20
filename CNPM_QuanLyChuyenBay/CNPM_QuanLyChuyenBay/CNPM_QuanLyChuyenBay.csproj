@@ -248,6 +248,9 @@
     <Content Include="Views\ChuyenBay\Create.cshtml" />
     <Content Include="Views\DatVe\DanhSachVeTheoPhieuDat.cshtml" />
     <Content Include="Views\DatVe\ChiTietVe.cshtml" />
+    <Content Include="Views\DatVe\YeuCauHuy.cshtml" />
+    <Content Include="Views\DatVe\DanhSachYeuCauHuy.cshtml" />
+    <Content Include="Views\DatVe\DuyetHuy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

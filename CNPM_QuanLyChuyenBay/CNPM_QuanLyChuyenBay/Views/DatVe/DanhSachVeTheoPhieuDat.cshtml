@@ -23,13 +23,28 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.MaVe)</th>
-            <th>@Html.DisplayNameFor(model => model.TenHanhKhach)</th>
-            <th>@Html.DisplayNameFor(model => model.TenTTV)</th>
-            <th>@Html.DisplayNameFor(model => model.MaPhieuDat)</th>
-            <th>@Html.DisplayNameFor(model => model.HangGhe)</th>
-            <th>@Html.DisplayNameFor(model => model.MaChuyenBay)</th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaVe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHanhKhach)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTTV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaPhieuDat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HangGhe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaChuyenBay)
+            </td>
+            <td>
+                @Html.ActionLink("Yêu cầu hủy", "YeuCauHuy", new { id=item.MaVe }) |
+                @Html.ActionLink("Details", "ChiTietVe", new { id = item.MaVe, idChuyenBay = item.MaChuyenBay }) |
+            </td>
         </tr>
     </thead>
     <tbody>
