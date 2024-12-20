@@ -43,8 +43,16 @@
                 <td>@Html.DisplayFor(modelItem => item.HangGhe)</td>
                 <td>@Html.DisplayFor(modelItem => item.MaChuyenBay)</td>
                 <td>
-                    @Html.ActionLink("Huy", "Edit", new { id = item.MaVe, @class = "btn btn-warning btn-sm" }) |
-                    @Html.ActionLink("Details", "ChiTietVe", new { id = item.MaVe, idChuyenBay = item.MaChuyenBay, @class = "btn btn-info btn-sm" })
+                    @if (item.TenTTV == "Hủy vé")
+                    {
+                        <p>Đã hủy vé</p>
+                    }
+                    else
+                    {
+                    @Html.ActionLink("Huy", "YeuCauHuy", new { id = item.MaVe, @class = "btn btn-warning btn-sm" }) 
+
+                    }
+                   | @Html.ActionLink("Details", "ChiTietVe", new { id = item.MaVe, idChuyenBay = item.MaChuyenBay, @class = "btn btn-info btn-sm" })
                 </td>
             </tr>
         }

@@ -386,7 +386,8 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                                         mb.TenMayBay, 
                                         sbDi.TenSanBay AS SanBayDi, 
                                         sbDen.TenSanBay AS SanBayDen,
-                                        ttv.TenTTV AS TrangThaiVe
+                                        ttv.TenTTV AS TrangThaiVe,
+                                        pd.MaBooking
                                 FROM PhieuDat pd
                                 JOIN Ve v ON pd.MaPhieuDat = v.MaPhieuDat
                                 JOIN ChuyenBay cb ON v.MaChuyenBay = cb.MaChuyenBay
@@ -416,7 +417,9 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                         NgayGioDi = Convert.ToDateTime(reader["NgayGioDi"]),
                         TenMayBay = reader["TenMayBay"].ToString(),
                         SanBayDi = reader["SanBayDi"].ToString(),
-                        SanBayDen = reader["SanBayDen"].ToString()
+                        SanBayDen = reader["SanBayDen"].ToString(),
+                        MaBooking = reader["MaBooking"].ToString()
+                        
                     };
                     lichSuDatVes.Add(lichSu);
                 }

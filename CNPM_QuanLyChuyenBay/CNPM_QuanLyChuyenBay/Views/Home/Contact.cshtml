@@ -1,17 +1,36 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Giới thiệu";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>@ViewBag.Title</h2>
+<h3>Chào mừng đến với CaiToiThap - Nơi mang đến trải nghiệm đặt vé máy bay đẳng cấp!</h3>
+
+<p>
+    CaiToiThap tự hào là nền tảng bán vé máy bay hàng đầu, giúp bạn dễ dàng tìm kiếm và đặt vé với mức giá ưu đãi nhất.
+    Chúng tôi cam kết cung cấp dịch vụ nhanh chóng, tiện lợi và chuyên nghiệp.
+</p>
 
 <address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
+    <strong>Trụ sở chính:</strong><br />
+    Số 123, Đường Cao Tốc, Quận 1<br />
+    Thành phố Hồ Chí Minh, Việt Nam<br />
+    <abbr title="Phone">Điện thoại:</abbr> 0987.654.321
 </address>
 
 <address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    <strong>Hỗ trợ khách hàng:</strong> <a href="mailto:hotro@caitoithap.com">hotro@caitoithap.com</a><br />
+    <strong>Hợp tác kinh doanh:</strong> <a href="mailto:doitac@caitoithap.com">doitac@caitoithap.com</a>
 </address>
+
+<h4>Các thành viên sáng lập:</h4>
+<ul>
+    <li>Phạm Đắc Anh Duy</li>
+    <li>Phạm Tiến Dũng</li>
+    <li>Nguyễn Trường Duy</li>
+    <li>Trần Trung Đông</li>
+</ul>
+
+<!-- Nút "Đặt vé ngay!" -->
+<a href="@Url.Action("TimKiemChuyenBay", "DatVe")">
+    <button class="btn-success" type="button">Đặt vé ngay!</button>
+</a>
+    

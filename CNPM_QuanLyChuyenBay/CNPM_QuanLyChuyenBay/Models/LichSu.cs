@@ -14,6 +14,8 @@ namespace CNPM_QuanLyChuyenBay.Models
         public string TenMayBay { get; set; }
         public string SanBayDi { get; set; }
         public string SanBayDen { get; set; }
+
+        public string MaBooking { get; set; }
     }
 
 }

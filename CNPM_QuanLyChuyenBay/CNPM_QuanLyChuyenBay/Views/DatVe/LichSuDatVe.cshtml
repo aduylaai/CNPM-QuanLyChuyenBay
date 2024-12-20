@@ -17,6 +17,7 @@
             <th>Tên Máy Bay</th>
             <th>Sân Bay Đi</th>
             <th>Sân Bay Đến</th>
+            <th>Mã booking</th>
             <th>Thao Tác</th>
         </tr>
     </thead>
@@ -31,6 +32,7 @@
                 <td>@item.TenMayBay</td>
                 <td>@item.SanBayDi</td>
                 <td>@item.SanBayDen</td>
+                <td>@item.MaBooking</td>
                 <td>
                     @Html.ActionLink("Xem danh sách hành khách", "DanhSachVeTheoPhieuDat", "DatVe", new { id = item.MaPhieuDat }, null)
                 </td>
