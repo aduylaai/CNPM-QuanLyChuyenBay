@@ -5,11 +5,10 @@
     ViewBag.Title = "ChiTietVe";
     Layout = "~/Views/Shared/CustomerLayout.cshtml";
     var thongTinChuyenBay = ViewBag.CB as KetQuaTimKiem;
-
 }
 
-<h2>Thông Tin Chuyến Bay</h2>
-<div>
+<h2 class="page-title">Thông Tin Chuyến Bay</h2>
+<div class="flight-info">
     <p><strong>Chuyến Bay:</strong> @thongTinChuyenBay.MaChuyenBay</p>
     <p><strong>Hạng Hàng Không:</strong> @thongTinChuyenBay.TenHangHangKhong</p>
     <p><strong>Sân Bay Đi:</strong> @thongTinChuyenBay.TenSB_Di</p>
@@ -18,64 +17,156 @@
     <p><strong>Ngày Giờ Đến:</strong> @thongTinChuyenBay.NgayGioDen</p>
 </div>
 
+<h2 class="detail-title">Chi Tiết Vé</h2>
 
-<h2>ChiTietVe</h2>
-
-<div>
-    <h4>Ve</h4>
+<div class="ticket-details">
+    <h4>Thông Tin Vé</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MaVe)
-        </dt>
+        <div class="dl-row">
+            <dt>Mã vé</dt>
+            <dd>@Html.DisplayFor(model => model.MaVe)</dd>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.MaVe)
-        </dd>
+        <div class="dl-row">
+            <dt>Tên hành khách</dt>
+            <dd>@Html.DisplayFor(model => model.TenHanhKhach)</dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHanhKhach)
-        </dt>
+        <div class="dl-row">
+            <dt>Trạng thái vé</dt>
+            <dd>@Html.DisplayFor(model => model.TenTTV)</dd>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenHanhKhach)
-        </dd>
+        <div class="dl-row">
+            <dt>Mã phiếu đặt</dt>
+            <dd>@Html.DisplayFor(model => model.MaPhieuDat)</dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TenTTV)
-        </dt>
+        <div class="dl-row">
+            <dt>Hạng ghế</dt>
+            <dd>@Html.DisplayFor(model => model.HangGhe)</dd>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenTTV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaPhieuDat)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaPhieuDat)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HangGhe)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HangGhe)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaChuyenBay)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaChuyenBay)
-        </dd>
-
+        <div class="dl-row">
+            <dt>Mã chuyến bay</dt>
+            <dd>@Html.DisplayFor(model => model.MaChuyenBay)</dd>
+        </div>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+
+<p class="action-links">
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-warning btn-sm" }) |
+    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-secondary btn-sm" })
 </p>
+
+<style>
+    /* General styling for the page */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        padding: 20px;
+    }
+
+    .page-title, .detail-title {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    .flight-info p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .flight-info strong {
+        color: #0056b3;
+    }
+
+    /* Styling for the ticket details section */
+    .ticket-details {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .ticket-details h4 {
+            font-size: 24px;
+            color: #007bff;
+        }
+
+    .dl-horizontal {
+        margin-left: 0;
+        line-height: 1.6;
+    }
+
+        .dl-horizontal dt {
+            font-weight: bold;
+            color: #333;
+            width: 180px;
+            display: inline-block;
+        }
+
+        .dl-horizontal dd {
+            color: #555;
+            margin-left: 200px;
+            display: inline-block;
+        }
+
+    /* Use Flexbox to align the labels and values on the same line */
+    .dl-row {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: center;
+    }
+
+        .dl-row dt {
+            width: 180px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .dl-row dd {
+            color: #555;
+            flex-grow: 1;
+        }
+
+    /* Styling for the action links */
+    .action-links {
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: black;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .btn-sm {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+</style>

@@ -7,8 +7,8 @@
     var thongTinChuyenBay = ViewBag.CB as KetQuaTimKiem;
 }
 
-<h2>Thông Tin Chuyến Bay</h2>
-<div>
+<h2 class="page-title">Thông Tin Chuyến Bay</h2>
+<div class="flight-info">
     <p><strong>Chuyến Bay:</strong> @thongTinChuyenBay.MaChuyenBay</p>
     <p><strong>Hạng Hàng Không:</strong> @thongTinChuyenBay.TenHangHangKhong</p>
     <p><strong>Sân Bay Đi:</strong> @thongTinChuyenBay.TenSB_Di</p>
@@ -17,61 +17,127 @@
     <p><strong>Ngày Giờ Đến:</strong> @thongTinChuyenBay.NgayGioDen</p>
 </div>
 
+<h2 class="table-title">Danh sách vé theo phiếu đặt</h2>
 
-<h2>Danh sách vé theo phiếu đặt</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaVe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenHanhKhach)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenTTV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaPhieuDat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HangGhe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaChuyenBay)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-bordered">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaVe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenHanhKhach)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenTTV)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaPhieuDat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HangGhe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaChuyenBay)
-            </td>
-            <td>
-                @Html.ActionLink("Huy", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "ChiTietVe", new { id = item.MaVe, idChuyenBay = item.MaChuyenBay }) |
-            </td>
+            <th>@Html.DisplayNameFor(model => model.MaVe)</th>
+            <th>@Html.DisplayNameFor(model => model.TenHanhKhach)</th>
+            <th>@Html.DisplayNameFor(model => model.TenTTV)</th>
+            <th>@Html.DisplayNameFor(model => model.MaPhieuDat)</th>
+            <th>@Html.DisplayNameFor(model => model.HangGhe)</th>
+            <th>@Html.DisplayNameFor(model => model.MaChuyenBay)</th>
+            <th></th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaVe)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenHanhKhach)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenTTV)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaPhieuDat)</td>
+                <td>@Html.DisplayFor(modelItem => item.HangGhe)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaChuyenBay)</td>
+                <td>
+                    @Html.ActionLink("Huy", "Edit", new { id = item.MaVe, @class = "btn btn-warning btn-sm" }) |
+                    @Html.ActionLink("Details", "ChiTietVe", new { id = item.MaVe, idChuyenBay = item.MaChuyenBay, @class = "btn btn-info btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    /* General styling for the page */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        padding: 20px;
     }
 
-</table>
+    .page-title, .table-title {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    .flight-info p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .flight-info strong {
+        color: #0056b3;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        background-color: white;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table td {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover td {
+            background-color: #e0e0e0;
+        }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: white;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: black;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+    .btn-sm {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+</style>
