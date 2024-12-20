@@ -1,0 +1,81 @@
+﻿@model CNPM_QuanLyChuyenBay.Models.Ve
+@using CNPM_QuanLyChuyenBay.Models
+
+@{
+    ViewBag.Title = "ChiTietVe";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+    var thongTinChuyenBay = ViewBag.CB as KetQuaTimKiem;
+
+}
+
+<h2>Thông Tin Chuyến Bay</h2>
+<div>
+    <p><strong>Chuyến Bay:</strong> @thongTinChuyenBay.MaChuyenBay</p>
+    <p><strong>Hạng Hàng Không:</strong> @thongTinChuyenBay.TenHangHangKhong</p>
+    <p><strong>Sân Bay Đi:</strong> @thongTinChuyenBay.TenSB_Di</p>
+    <p><strong>Sân Bay Đến:</strong> @thongTinChuyenBay.TenSB_Den</p>
+    <p><strong>Ngày Giờ Đi:</strong> @thongTinChuyenBay.NgayGioDi</p>
+    <p><strong>Ngày Giờ Đến:</strong> @thongTinChuyenBay.NgayGioDen</p>
+</div>
+
+
+<h2>ChiTietVe</h2>
+
+<div>
+    <h4>Ve</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaVe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaVe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHanhKhach)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenHanhKhach)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenTTV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenTTV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaPhieuDat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaPhieuDat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HangGhe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HangGhe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaChuyenBay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaChuyenBay)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

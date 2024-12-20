@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CNPM_QuanLyChuyenBay.Models.Ve>
+@using CNPM_QuanLyChuyenBay.Models
+
+@{
+    ViewBag.Title = "DanhSachVeTheoPhieuDat";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+    var thongTinChuyenBay = ViewBag.CB as KetQuaTimKiem;
+}
+
+<h2>Thông Tin Chuyến Bay</h2>
+<div>
+    <p><strong>Chuyến Bay:</strong> @thongTinChuyenBay.MaChuyenBay</p>
+    <p><strong>Hạng Hàng Không:</strong> @thongTinChuyenBay.TenHangHangKhong</p>
+    <p><strong>Sân Bay Đi:</strong> @thongTinChuyenBay.TenSB_Di</p>
+    <p><strong>Sân Bay Đến:</strong> @thongTinChuyenBay.TenSB_Den</p>
+    <p><strong>Ngày Giờ Đi:</strong> @thongTinChuyenBay.NgayGioDi</p>
+    <p><strong>Ngày Giờ Đến:</strong> @thongTinChuyenBay.NgayGioDen</p>
+</div>
+
+
+<h2>Danh sách vé theo phiếu đặt</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaVe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHanhKhach)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenTTV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaPhieuDat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HangGhe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaChuyenBay)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaVe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHanhKhach)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTTV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaPhieuDat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HangGhe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaChuyenBay)
+            </td>
+            <td>
+                @Html.ActionLink("Huy", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "ChiTietVe", new { id = item.MaVe, idChuyenBay = item.MaChuyenBay }) |
+            </td>
+        </tr>
+    }
+
+</table>

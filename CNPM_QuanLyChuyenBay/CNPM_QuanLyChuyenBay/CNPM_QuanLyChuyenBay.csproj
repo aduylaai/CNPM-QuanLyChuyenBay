@@ -153,6 +153,7 @@
     <Compile Include="Models\PHoaDon.cs" />
     <Compile Include="Models\SanBay.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
+    <Compile Include="Models\Ve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +246,8 @@
     <Content Include="Views\ChuyenBay\Delete.cshtml" />
     <Content Include="Views\ChuyenBay\Index.cshtml" />
     <Content Include="Views\ChuyenBay\Create.cshtml" />
+    <Content Include="Views\DatVe\DanhSachVeTheoPhieuDat.cshtml" />
+    <Content Include="Views\DatVe\ChiTietVe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

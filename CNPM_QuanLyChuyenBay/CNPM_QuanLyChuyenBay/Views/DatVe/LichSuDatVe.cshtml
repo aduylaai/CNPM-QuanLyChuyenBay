@@ -32,8 +32,7 @@
                 <td>@item.SanBayDi</td>
                 <td>@item.SanBayDen</td>
                 <td>
-                    <a href="">Xem danh sách hành khách</a>
-                    <a href="">Hủy vé</a>
+                    @Html.ActionLink("Xem danh sách hành khách", "DanhSachVeTheoPhieuDat", "DatVe", new { id = item.MaPhieuDat }, null)
                 </td>
             </tr>
         }

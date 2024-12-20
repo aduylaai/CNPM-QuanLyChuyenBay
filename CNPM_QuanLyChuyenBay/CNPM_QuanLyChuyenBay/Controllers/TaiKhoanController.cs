@@ -31,6 +31,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
                 dsTaiKhoan.Add(tk);
             }
+            reader.Close();
             return View(dsTaiKhoan);
         }
 
@@ -45,7 +46,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 tk.TenTaiKhoan = reader["TenTaiKhoan"].ToString();
                 tk.MatKhau = reader["MatKhau"].ToString();
             }
-
+            reader.Close();
             return View(tk);
         }
 
@@ -91,6 +92,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 tk.TenTaiKhoan = reader["TenTaiKhoan"].ToString();
                 tk.MatKhau = reader["MatKhau"].ToString();
             }
+            reader.Close();
 
             return View(tk);
         }
@@ -133,6 +135,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 tk.TenTaiKhoan = reader["TenTaiKhoan"].ToString();
                 tk.MatKhau = reader["MatKhau"].ToString();
             }
+            reader.Close();
 
             return View(tk);
         }
@@ -212,6 +215,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                             {
                                 ViewBag.ErrorMessage = "Tài khoản hoặc mật khẩu không đúng.";
                             }
+                            reader.Close();
                         }
                     }
                 }

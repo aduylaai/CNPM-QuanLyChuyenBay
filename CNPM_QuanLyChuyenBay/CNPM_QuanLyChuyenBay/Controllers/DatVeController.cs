@@ -167,6 +167,8 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                         };
                         result.Add(item);
                     }
+
+                    reader.Close();
                 }
             }
             catch (Exception ex)
@@ -177,6 +179,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             finally
             {
                 // Đóng kết nối
+
                 dBConn.closeConnect();
             }
 
@@ -239,7 +242,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                         };
                         kq = item;
                     }
-
+                    reader.Close();
                 }
                 return kq;
             }
@@ -288,6 +291,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 tmp.CCCD_Passport = reader["CCCD_Passport"].ToString();
                 tmp.GioiTinh = reader["GioiTinh"].ToString();
             }
+            reader.Close();
 
             return tmp;
         }
@@ -375,7 +379,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             string userName = Session["UserName"].ToString();
             List<LichSuDatVe> lichSuDatVes = new List<LichSuDatVe>();
 
-            string sqlQuery = @"SELECT pd.MaPhieuDat, 
+            string sqlQuery = @"SELECT distinct pd.MaPhieuDat, 
                                         pd.NgayDat, 
                                         cb.MaChuyenBay, 
                                         cb.NgayGioDi, 
@@ -395,13 +399,12 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                                 JOIN TaiKhoan tk ON kh.MaTaiKhoan = tk.MaTaiKhoan
                                 WHERE tk.TenTaiKhoan = @TenTaiKhoan;";
 
-            DBConnect db = new DBConnect();
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@TenTaiKhoan", userName)
             };
 
-            using (SqlDataReader reader = db.ThucThiReader(sqlQuery, sqlParameters))
+            using (SqlDataReader reader = dBConn.ThucThiReader(sqlQuery, sqlParameters))
             {
                 while (reader.Read())
                 {
@@ -417,6 +420,8 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                     };
                     lichSuDatVes.Add(lichSu);
                 }
+                reader.Close();
+
             }
             return View("LichSuDatVe", lichSuDatVes);
         }
@@ -433,7 +438,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                 List<PHanhKhach> dsHanhKhach = TempData["DanhSachHanhKhach"] as List<PHanhKhach>;
                 KetQuaTimKiem thongTinChuyenBay = LayChuyenBay(idChuyenBay);
                 PHoaDon hoaDon = TempData["pHoaDon"] as PHoaDon;
-                int maHG = int.Parse( TempData["MaHG"].ToString());
+                int maHG = int.Parse(TempData["MaHG"].ToString());
 
 
                 //Tao phieu dat + ve
@@ -442,7 +447,7 @@ namespace CNPM_QuanLyChuyenBay.Controllers
                     //Lay MaKH
                     string tenTK = Session["UserName"].ToString();
                     int maTK = 0;
-                    SqlDataReader reader = dBConn.ThucThiReader("Select MaTaiKhoan From TaiKhoan where TenTaiKhoan = N'" + tenTK+"'");
+                    SqlDataReader reader = dBConn.ThucThiReader("Select MaTaiKhoan From TaiKhoan where TenTaiKhoan = N'" + tenTK + "'");
                     while (reader.Read())
                     {
                         maTK = int.Parse(reader["MaTaiKhoan"].ToString());
@@ -578,5 +583,76 @@ namespace CNPM_QuanLyChuyenBay.Controllers
             return new string(code);
         }
 
+        public ActionResult DanhSachVeTheoPhieuDat(int id)
+        {
+            try
+            {
+                List<Ve> dsVe = new List<Ve>();
+                string query = @"
+                                    select v.*, hk.HoTen, ttv.TenTTV, hg.TenHangGhe from Ve v
+                                    join HanhKhach hk on hk.MaHanhKhach = v.MaHanhKhach
+                                    join TrangThaiVe ttv on ttv.MaTTV = v.MaTTV
+                                    join HangGhe hg on hg.MaHangGhe = v.MaHangGhe
+                                    Where v.MaChuyenBay = " + id;
+                SqlDataReader reader1 = dBConn.ThucThiReader(query);
+
+                while (reader1.Read())
+                {
+                    Ve tmp = new Ve();
+
+                    tmp.MaChuyenBay = int.Parse(reader1["MaChuyenBay"].ToString());
+                    tmp.HangGhe = reader1["TenHangGhe"].ToString();
+                    tmp.MaVe = int.Parse(reader1["MaVe"].ToString());
+                    tmp.TenTTV = reader1["TenTTV"].ToString();
+                    tmp.TenHanhKhach = reader1["HoTen"].ToString();
+                    tmp.MaChuyenBay = id;
+                    tmp.MaPhieuDat = int.Parse(reader1["MaPhieuDat"].ToString());
+
+                    dsVe.Add(tmp);
+                }
+                reader1.Close();
+                KetQuaTimKiem cb = LayChuyenBay(id);
+                ViewBag.CB = cb;
+
+                return View(dsVe);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public ActionResult ChiTietVe(int id, int idChuyenBay)
+        {
+            Ve ve = new Ve();
+            string query = @"
+                                    select v.*, hk.HoTen, ttv.TenTTV, hg.TenHangGhe from Ve v
+                                    join HanhKhach hk on hk.MaHanhKhach = v.MaHanhKhach
+                                    join TrangThaiVe ttv on ttv.MaTTV = v.MaTTV
+                                    join HangGhe hg on hg.MaHangGhe = v.MaHangGhe
+                                    Where v.MaChuyenBay = " + idChuyenBay + " and v.MaVe = " + id;
+            SqlDataReader reader1 = dBConn.ThucThiReader(query);
+
+            while (reader1.Read())
+            {
+                Ve tmp = new Ve();
+
+                tmp.MaChuyenBay = int.Parse(reader1["MaChuyenBay"].ToString());
+                tmp.HangGhe = reader1["TenHangGhe"].ToString();
+                tmp.MaVe = int.Parse(reader1["MaVe"].ToString());
+                tmp.TenTTV = reader1["TenTTV"].ToString();
+                tmp.TenHanhKhach = reader1["HoTen"].ToString();
+                tmp.MaChuyenBay = id;
+                tmp.MaPhieuDat = int.Parse(reader1["MaPhieuDat"].ToString());
+
+                ve = tmp;
+            }
+            reader1.Close();
+            KetQuaTimKiem cb = LayChuyenBay(id);
+            ViewBag.CB = cb;
+
+            return View(ve);
+        }
     }
 }
