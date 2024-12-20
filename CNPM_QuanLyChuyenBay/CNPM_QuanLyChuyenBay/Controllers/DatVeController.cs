@@ -673,9 +673,14 @@ namespace CNPM_QuanLyChuyenBay.Controllers
 
         public ActionResult DanhSachYeuCauHuy()
         {
-            string cauTruyVan = @"select * from Ve where MaTTV = 5";
+            string query = @"
+                                    select v.*, hk.HoTen, ttv.TenTTV, hg.TenHangGhe from Ve v
+                                    join HanhKhach hk on hk.MaHanhKhach = v.MaHanhKhach
+                                    join TrangThaiVe ttv on ttv.MaTTV = v.MaTTV
+                                    join HangGhe hg on hg.MaHangGhe = v.MaHangGhe
+                                    where v.MaTTV = 5";
             List<Ve> dsVeYeuCauHuy = new List<Ve>();
-            using (SqlDataReader reader1 = dBConn.ThucThiReader(cauTruyVan))
+            using (SqlDataReader reader1 = dBConn.ThucThiReader(query))
             {
                 while (reader1.Read())
                 {
