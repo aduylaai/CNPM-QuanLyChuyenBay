@@ -13,6 +13,7 @@ namespace CNPM_QuanLyChuyenBay.Helpers
         private SqlConnection _conn;
         private string _strConnect, _strServerName, _strDBName, _strUserID, _strPassword;
         public SqlConnection conn
+        
         {
             get { return _conn; }
             set { _conn = value; }
